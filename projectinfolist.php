@@ -1,6 +1,5 @@
-<html> 
-   
-    // this file is for admin level user`s information display;
+   <!--this file is for admin level user`s information display;-->
+<html>    
     <head> 
         <meta http-equiv="Content-Type" content="text/html"; charset="utf-8" /> 
         <title>项目列表</title> 
