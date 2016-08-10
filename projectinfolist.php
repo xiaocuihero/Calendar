@@ -1,7 +1,7 @@
-<!--this file is for admin level user`s information display;-->
+   <!--this file is for admin level user`s information display;-->
 <html>    
     <head> 
-        <meta http-equiv="Content-Type" content="text/html" charset="utf-8" /> 
+        <meta http-equiv="Content-Type" content="text/html"; charset="utf-8" /> 
         <title>项目列表</title> 
     </head>
     <script type="text/javascript" src="jquery.min.js">
@@ -68,13 +68,7 @@
             width: 100%; 
             padding: 0; 
             margin: 0; 
-            /*table-layout: fixed;*/
-        }
-
-        /*        row.mytd{
-                    max-width: 200%;
-                    word-wrap:break-word; 
-                }        */
+        } 
 
         caption { 
             padding: 0 0 5px 0; 
@@ -177,7 +171,7 @@
             $u = $_GET['u'];
             $d = 0;
             $d = $_GET['d'];
-
+            
             $con = mysqli_connect('localhost', 'sa', '123456', 'calendardb');
             mysqli_query($con, "set names 'utf8'");
             if (!$con) {
@@ -192,7 +186,7 @@
                 }
             } else {
                 print_r(2);
-
+                
                 $para6 = "-1,";
                 $para4 = "-1,";
                 if ($d != 0) {
@@ -230,7 +224,6 @@
                     $site = $row[7];
                     $pdate = $row[5];
                     $cname = $row[13];
-                    $cnameArray = explode(",", $cname);
                     $charge = $row[4];
                     $pprogress = $row[10];
                     $realname = $row[9];
@@ -245,7 +238,7 @@
                         <td class="row"><?php echo $site ?></td> 
                         <td class="row"><?php echo $charge ?></td>
                         <td class="row"><?php echo $realname ?></td> 
-        <!--                        <td class="row"><select id="cperson<?php echo $id ?>" name="cperson">                     
+                        <td class="row"><select id="cperson<?php echo $id ?>" name="cperson">                     
                             </select>
                             <script type="text/javascript">
                                 var cname = "<?php echo $cname; ?>";
@@ -254,115 +247,116 @@
                                     var newItem = new Option(arr2[i], arr2[i]);
                                     document.getElementById("cperson<?php echo $id ?>").options.add(newItem);
                                 }
-                            </script>-->
-                        <td class="row" style="max-width:200;word-wrap: break-word"><?php echo $cname ?></td> 
+                            </script>
+
+                        </td> 
                         <td class="row"><?php echo $pdate ?></td>
                         <td class="row"><?php echo $pprogress ?></td>
                         <td class="row"><?php echo $returnmoney ?></td>  
                         <td class="row" align="center"><a href=<?php echo $href1 ?> >日志</a>           	<a href=<?php echo $href2 ?> >项目报告</a></td>  
                     </tr> 
-                    <?php
-                }
-            }
-            mysqli_close($con);
+        <?php
+    }
+}
+mysqli_close($con);
 
-            $u = "";
-            $u = $_GET['u'];
-            $s = 1;
-            $s = $_GET['s'];
-            $u = 0;
-            $u = $_GET['u'];
-            $con = mysqli_connect('localhost', 'sa', '123456', 'calendardb');
-            mysqli_query($con, "set names 'utf8'");
-            if (!$con) {
-                die('Could not connect: ' . mysqli_error());
-            }
-            $para = "-1,";
-            $para1 = "-1,";
-            $para2 = "-1,";
-            $para3 = "-1,";
-            $sql1 = "SELECT * FROM `calendar` where UPAccount='" . $u . "'";
-            $result1 = mysqli_query($con, $sql1);
-            if ($result1 != null) {
-                while ($row = mysqli_fetch_row($result1)) {
-                    $para.=$row[2] . ',';
-                }
-            }
-            $para = substr($para, 0, -1);
-            $sql2 = "SELECT p.`id`, p.`projectname`, p.`projectcontent`, p.`projectmonitorid`, p.`charge`, concat(p.`startdate`,'~', p.`enddate`), p.`status`, p.`site`,p.`contract`,u.`realname`,m.`progress`,m.`remainwork`,m.`returnmoney`,un.`cname` FROM `project` p left join `user` u on p.`projectmonitorid`=u.`id` left join (SELECT `projectid`,max(`progress`) progress, `remainwork`, `monthplan`, `returnmoney` FROM `projectreport` WHERE `flag`=1 group by `projectid`) m on p.id=m.projectid left join (SELECT `Location`,group_concat(distinct u.realname) cname FROM `calendar` c left join `user` u on c.UPAccount=u.id group by c.`Location`) un on p.id=un.Location where p.projectmonitorid='" . $u . "'";
-            $result1 = mysqli_query($con, $sql2);
-            if ($result1 != null) {
-                while ($row = mysqli_fetch_row($result1)) {
-                    $para1.=$row[0] . ',';
-                }
-            }
-            $para1 = substr($para1, 0, -1);
-            $sql3 = "SELECT * FROM `user` where department='" . $d . "'";
-            $result1 = mysqli_query($con, $sql3);
-            if ($result1 != null) {
-                while ($row = mysqli_fetch_row($result1)) {
-                    $para2.=$row[0] . ',';
-                }
-            }
-            $para2 = substr($para2, 0, -1);
-            $sql4 = "SELECT * FROM `calendar` where UPAccount in(" . $para2 . ")";
-            $result1 = mysqli_query($con, $sql4);
-            if ($result1 != null) {
-                while ($row = mysqli_fetch_row($result1)) {
-                    $para3.=$row[2] . ',';
-                }
-            }
-            $para3 = substr($para3, 0, -1);
-            $para4 = "";
+$u = "";
+$u = $_GET['u'];
+$s = 1;
+$s = $_GET['s'];
+$u = 0;
+$u = $_GET['u'];
+$con = mysqli_connect('localhost', 'sa', '123456', 'calendardb');
+mysqli_query($con, "set names 'utf8'");
+if (!$con) {
+    die('Could not connect: ' . mysqli_error());
+}
+$para = "-1,";
+$para1 = "-1,";
+$para2 = "-1,";
+$para3 = "-1,";
+$sql1 = "SELECT * FROM `calendar` where UPAccount='" . $u . "'";
+$result1 = mysqli_query($con, $sql1);
+if ($result1 != null) {
+    while ($row = mysqli_fetch_row($result1)) {
+        $para.=$row[2] . ',';
+    }
+}
+$para = substr($para, 0, -1);
+$sql2 = "SELECT p.`id`, p.`projectname`, p.`projectcontent`, p.`projectmonitorid`, p.`charge`, concat(p.`startdate`,'~', p.`enddate`), p.`status`, p.`site`,p.`contract`,u.`realname`,m.`progress`,m.`remainwork`,m.`returnmoney`,un.`cname` FROM `project` p left join `user` u on p.`projectmonitorid`=u.`id` left join (SELECT `projectid`,max(`progress`) progress, `remainwork`, `monthplan`, `returnmoney` FROM `projectreport` WHERE `flag`=1 group by `projectid`) m on p.id=m.projectid left join (SELECT `Location`,group_concat(distinct u.realname) cname FROM `calendar` c left join `user` u on c.UPAccount=u.id group by c.`Location`) un on p.id=un.Location where p.projectmonitorid='" . $u . "'";
+$result1 = mysqli_query($con, $sql2);
+if ($result1 != null) {
+    while ($row = mysqli_fetch_row($result1)) {
+        $para1.=$row[0] . ',';
+    }
+}
+$para1 = substr($para1, 0, -1);
+$sql3 = "SELECT * FROM `user` where department='" . $d . "'";
+$result1 = mysqli_query($con, $sql3);
+if ($result1 != null) {
+    while ($row = mysqli_fetch_row($result1)) {
+        $para2.=$row[0] . ',';
+    }
+}
+$para2 = substr($para2, 0, -1);
+$sql4 = "SELECT * FROM `calendar` where UPAccount in(" . $para2 . ")";
+$result1 = mysqli_query($con, $sql4);
+if ($result1 != null) {
+    while ($row = mysqli_fetch_row($result1)) {
+        $para3.=$row[2] . ',';
+    }
+}
+$para3 = substr($para3, 0, -1);
+$para4 = "";
 
-            $sql5 = "SELECT * FROM `project` where projectmonitorid in(" . $para2 . ")";
-            $result1 = mysqli_query($con, $sql4);
-            if ($result1 != null) {
-                while ($row = mysqli_fetch_row($result1)) {
-                    $para4.=$row[1] . ',';
-                }
-            }
-            $para4 = substr($para4, 0, -1);
-            if ($u == 0) {
+$sql5 = "SELECT * FROM `project` where projectmonitorid in(" . $para2 . ")";
+$result1 = mysqli_query($con, $sql4);
+if ($result1 != null) {
+    while ($row = mysqli_fetch_row($result1)) {
+        $para4.=$row[1] . ',';
+    }
+}
+$para4 = substr($para4, 0, -1);
+if ($u == 0) {
 
-                if ($s == 4) {
-                    $sql = "SELECT p.`id`, p.`projectname`, p.`projectcontent`, p.`projectmonitorid`, p.`charge`, concat(p.`startdate`,'~', p.`enddate`), p.`status`, p.`site`,p.`contract`,u.`realname`,m.`progress`,m.`remainwork`,m.`returnmoney`,un.`cname` FROM `project` p left join `user` u on p.`projectmonitorid`=u.`id` left join (SELECT `projectid`,max(`progress`) progress, `remainwork`, `monthplan`, `returnmoney` FROM `projectreport` WHERE `flag`=1 group by `projectid`) m on p.id=m.projectid left join (SELECT `Location`,group_concat(distinct u.realname) cname FROM `calendar` c left join `user` u on c.UPAccount=u.id group by c.`Location`) un on p.id=un.Location  where p.id not in(" . $para4 . ")";
-                } else {
+    if ($s == 4) {
+        $sql = "SELECT p.`id`, p.`projectname`, p.`projectcontent`, p.`projectmonitorid`, p.`charge`, concat(p.`startdate`,'~', p.`enddate`), p.`status`, p.`site`,p.`contract`,u.`realname`,m.`progress`,m.`remainwork`,m.`returnmoney`,un.`cname` FROM `project` p left join `user` u on p.`projectmonitorid`=u.`id` left join (SELECT `projectid`,max(`progress`) progress, `remainwork`, `monthplan`, `returnmoney` FROM `projectreport` WHERE `flag`=1 group by `projectid`) m on p.id=m.projectid left join (SELECT `Location`,group_concat(distinct u.realname) cname FROM `calendar` c left join `user` u on c.UPAccount=u.id group by c.`Location`) un on p.id=un.Location  where p.id not in(" . $para4 . ")";
+    } else {
 
-                    $sql = "SELECT p.`id`, p.`projectname`, p.`projectcontent`, p.`projectmonitorid`, p.`charge`, concat(p.`startdate`,'~', p.`enddate`), p.`status`, p.`site`,p.`contract`,u.`realname`,m.`progress`,m.`remainwork`,m.`returnmoney`,un.`cname` FROM `project` p left join `user` u on p.`projectmonitorid`=u.`id` left join (SELECT `projectid`,max(`progress`) progress, `remainwork`, `monthplan`, `returnmoney` FROM `projectreport` WHERE `flag`=1 group by `projectid`) m on p.id=m.projectid left join (SELECT `Location`,group_concat(distinct u.realname) cname FROM `calendar` c left join `user` u on c.UPAccount=u.id group by c.`Location`) un on p.id=un.Location WHERE  p.status=$s and p.id not in(" . $para4 . ")";
-                }
-            } else {
-                if ($s == 4) {
+        $sql = "SELECT p.`id`, p.`projectname`, p.`projectcontent`, p.`projectmonitorid`, p.`charge`, concat(p.`startdate`,'~', p.`enddate`), p.`status`, p.`site`,p.`contract`,u.`realname`,m.`progress`,m.`remainwork`,m.`returnmoney`,un.`cname` FROM `project` p left join `user` u on p.`projectmonitorid`=u.`id` left join (SELECT `projectid`,max(`progress`) progress, `remainwork`, `monthplan`, `returnmoney` FROM `projectreport` WHERE `flag`=1 group by `projectid`) m on p.id=m.projectid left join (SELECT `Location`,group_concat(distinct u.realname) cname FROM `calendar` c left join `user` u on c.UPAccount=u.id group by c.`Location`) un on p.id=un.Location WHERE  p.status=$s and p.id not in(" . $para4 . ")";
+    }
+} else {
+    if ($s == 4) {
 
-                    $sql = "SELECT p.`id`, p.`projectname`, p.`projectcontent`, p.`projectmonitorid`, p.`charge`, concat(p.`startdate`,'~', p.`enddate`), p.`status`, p.`site`,p.`contract`,u.`realname`,m.`progress`,m.`remainwork`,m.`returnmoney`,un.`cname` FROM `project` p left join `user` u on p.`projectmonitorid`=u.`id` left join (SELECT `projectid`,max(`progress`) progress, `remainwork`, `monthplan`, `returnmoney` FROM `projectreport` WHERE `flag`=1 group by `projectid`) m on p.id=m.projectid left join (SELECT `Location`,group_concat(distinct u.realname) cname FROM `calendar` c left join `user` u on c.UPAccount=u.id group by c.`Location`) un on p.id=un.Location WHERE p.id in (" . $para . ")and p.id not in(" . $para1 . ")";
-                } else {
-                    $sql = "SELECT p.`id`, p.`projectname`, p.`projectcontent`, p.`projectmonitorid`, p.`charge`, concat(p.`startdate`,'~', p.`enddate`), p.`status`, p.`site`,p.`contract`,u.`realname`,m.`progress`,m.`remainwork`,m.`returnmoney`,un.`cname` FROM `project` p left join `user` u on p.`projectmonitorid`=u.`id` left join (SELECT `projectid`,max(`progress`) progress, `remainwork`, `monthplan`, `returnmoney` FROM `projectreport` WHERE `flag`=1 group by `projectid`) m on p.id=m.projectid left join (SELECT `Location`,group_concat(distinct u.realname) cname FROM `calendar` c left join `user` u on c.UPAccount=u.id group by c.`Location`) un on p.id=un.Location WHERE p.id in (" . $para . ")and p.id not in(" . $para1 . ") and p.status=$s";
-                }
-            }
+        $sql = "SELECT p.`id`, p.`projectname`, p.`projectcontent`, p.`projectmonitorid`, p.`charge`, concat(p.`startdate`,'~', p.`enddate`), p.`status`, p.`site`,p.`contract`,u.`realname`,m.`progress`,m.`remainwork`,m.`returnmoney`,un.`cname` FROM `project` p left join `user` u on p.`projectmonitorid`=u.`id` left join (SELECT `projectid`,max(`progress`) progress, `remainwork`, `monthplan`, `returnmoney` FROM `projectreport` WHERE `flag`=1 group by `projectid`) m on p.id=m.projectid left join (SELECT `Location`,group_concat(distinct u.realname) cname FROM `calendar` c left join `user` u on c.UPAccount=u.id group by c.`Location`) un on p.id=un.Location WHERE p.id in (" . $para . ")and p.id not in(" . $para1 . ")";
+    } else {
+        $sql = "SELECT p.`id`, p.`projectname`, p.`projectcontent`, p.`projectmonitorid`, p.`charge`, concat(p.`startdate`,'~', p.`enddate`), p.`status`, p.`site`,p.`contract`,u.`realname`,m.`progress`,m.`remainwork`,m.`returnmoney`,un.`cname` FROM `project` p left join `user` u on p.`projectmonitorid`=u.`id` left join (SELECT `projectid`,max(`progress`) progress, `remainwork`, `monthplan`, `returnmoney` FROM `projectreport` WHERE `flag`=1 group by `projectid`) m on p.id=m.projectid left join (SELECT `Location`,group_concat(distinct u.realname) cname FROM `calendar` c left join `user` u on c.UPAccount=u.id group by c.`Location`) un on p.id=un.Location WHERE p.id in (" . $para . ")and p.id not in(" . $para1 . ") and p.status=$s";
+    }
+}
 
-            $result2 = mysqli_query($con, $sql);
-            if ($result2 != null) {
-                while ($row = mysqli_fetch_row($result2)) {
-                    $projectname = $row[1];
-                    $projectcontent = $row[2];
-                    $site = $row[7];
-                    $pdate = $row[5];
-                    $cname = $row[13];
-                    $charge = $row[4];
-                    $pprogress = $row[10];
-                    $realname = $row[9];
-                    $returnmoney = $row[12];
-                    $id = $row[0];
-                    $href1 = "xgcalendar-master/example/php/index.php?pid=" . $id . "&nu=" . $u;
-                    $href2 = "projectreport.php?pid=" . $id;
-                    ?>
+$result2 = mysqli_query($con, $sql);
+if ($result2 != null) {
+    while ($row = mysqli_fetch_row($result2)) {
+        $projectname = $row[1];
+        $projectcontent = $row[2];
+        $site = $row[7];
+        $pdate = $row[5];
+        $cname = $row[13];
+        $charge = $row[4];
+        $pprogress = $row[10];
+        $realname = $row[9];
+        $returnmoney = $row[12];
+        $id = $row[0];
+        $href1 = "xgcalendar-master/example/php/index.php?pid=" . $id . "&nu=" . $u;
+        $href2 = "projectreport.php?pid=" . $id;
+        ?>
                     <tr> 
                         <td class="row"><?php echo $projectname ?></td> 
                         <td class="row"><?php echo $projectcontent ?></td> 
                         <td class="row"><?php echo $site ?></td> 
                         <td class="row"><?php echo $charge ?></td>
                         <td class="row"><?php echo $realname ?></td> 
-        <!--                        <td class="row"><select id="cperson<?php echo $id ?>" name="cperson">                     
+                        <td class="row"><select id="cperson<?php echo $id ?>" name="cperson">                     
                             </select>
                             <script type="text/javascript">
                                 var cname = "<?php echo $cname; ?>";
@@ -371,8 +365,7 @@
                                     var newItem = new Option(arr2[i], arr2[i]);
                                     document.getElementById("cperson<?php echo $id ?>").options.add(newItem);
                                 }
-                            </script></td> -->
-                        <td class="row"><?php echo $cname ?></td> 
+                            </script></td> 
                         <td class="row"><?php echo $pdate ?></td>
                         <td class="row"><?php echo $pprogress ?></td>
                         <td class="row"><?php echo $returnmoney ?></td>  
