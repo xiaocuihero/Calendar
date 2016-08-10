@@ -1,0 +1,17 @@
+SELECT `id`, `projectid`, `reportcontent`, `reportdate`, `status`, `progress`, `remainwork`, `monthplan`, `returnmoney`, `flag` FROM `projectreport` WHERE 1
+group by `projectid`
+
+
+SELECT u.realname,group_concat(concat(p.projectname,'：',c.`Subject`)separator '<br/><br/>') FROM `calendar` c left join `user` u on c.UPAccount=u.id left join `project` p on p.id=c.Location group by c.`UPAccount` 
+
+
+SELECT `projectid`,max(`progress`), `remainwork`, `monthplan`, `returnmoney` FROM `projectreport` WHERE `flag`=1 group by `projectid` 
+
+SELECT p.`id`, p.`projectname`, p.`projectcontent`, p.`projectmonitorid`, p.`prestartdate`, p.`startdate`, p.`preenddate`, p.`enddate`, p.`status`, p.`site`,p.`contract`,u.`realname`,m.`progress`,m.`remainwork`,m.`returnmoney` FROM `project` p left join `user` u on p.`projectmonitorid`=u.`id` left join (SELECT `projectid`,max(`progress`) progress, `remainwork`, `monthplan`, `returnmoney` FROM `projectreport` WHERE `flag`=1 group by `projectid`) m on p.id=m.projectid 
+
+
+
+SELECT p.`id`, p.`projectname`, p.`projectcontent`, p.`projectmonitorid`, p.`charge`, concat(p.`startdate`,"~", p.`enddate`), p.`status`, p.`site`,p.`contract`,u.`realname`,m.progress,m.remainwork,m.returnmoney FROM `project` p left join `user` u on p.`projectmonitorid`=u.`id` left join (SELECT `projectid`,max(`progress`) progress, `remainwork`, `monthplan`, `returnmoney` FROM `projectreport` WHERE `flag`=1 group by `projectid`) m on p.id=m.projectid 
+
+
+SELECT `Location`,group_concat(distinct u.realname) FROM `calendar` c left join `user` u on c.UPAccount=u.id group by c.`Location` 

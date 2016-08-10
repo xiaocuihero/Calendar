@@ -1,0 +1,153 @@
+﻿<!DOCTYPE html>
+<html dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"
+        rel="stylesheet">
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"
+        rel="stylesheet">
+    <link rel="stylesheet" type="text/css" media="all" href="../../css/daterangepicker-bs3.css" />
+    <script type="text/javascript" src="jquery.min.js">
+    </script>
+    <title>添加用户</title>
+    <style type="text/css">
+        #dd
+        {
+            width: 543px;
+        }
+        #form1
+        {
+            background-color: #fff;
+            background-image: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#eee));
+            background-image: -webkit-linear-gradient(top, #fff, #eee);
+            background-image: -moz-linear-gradient(top, #fff, #eee);
+            background-image: -ms-linear-gradient(top, #fff, #eee);
+            background-image: -o-linear-gradient(top, #fff, #eee);
+            background-image: linear-gradient(top, #fff, #eee);
+            height: 400px;
+            width: 400px;
+            margin: -150px 0 0 -230px;
+            padding: 30px;
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            z-index: 0;
+            -moz-border-radius: 3px;
+            -webkit-border-radius: 3px;
+            border-radius: 3px;
+            -webkit-box-shadow: 0 0 2px rgba(0, 0, 0, 0.2), 0 1px 1px rgba(0, 0, 0, .2), 0 3px 0 #fff, 0 4px 0 rgba(0, 0, 0, .2), 0 6px 0 #fff, 0 7px 0 rgba(0, 0, 0, .2);
+            -moz-box-shadow: 0 0 2px rgba(0, 0, 0, 0.2), 1px 1px 0 rgba(0,   0,   0,   .1), 3px 3px 0 rgba(255, 255, 255, 1), 4px 4px 0 rgba(0,   0,   0,   .1), 6px 6px 0 rgba(255, 255, 255, 1), 7px 7px 0 rgba(0,   0,   0,   .1);
+            box-shadow: 0 0 2px rgba(0, 0, 0, 0.2), 0 1px 1px rgba(0, 0, 0, .2), 0 3px 0 #fff, 0 4px 0 rgba(0, 0, 0, .2), 0 6px 0 #fff, 0 7px 0 rgba(0, 0, 0, .2);
+        }
+        
+        #form1:before
+        {
+            content: '';
+            position: absolute;
+            z-index: -1;
+            border: 1px dashed #ccc;
+            top: 5px;
+            bottom: 5px;
+            left: 5px;
+            right: 5px;
+            -moz-box-shadow: 0 0 0 1px #fff;
+            -webkit-box-shadow: 0 0 0 1px #fff;
+            box-shadow: 0 0 0 1px #fff;
+        }
+    </style>
+    <script type="text/javascript">
+
+        function uploadInfo() {//大专业改变时查询具体专业，并填充具体专业下拉框
+            var url = "adduser.php";
+            var realname = document.getElementById("realname").value;
+            var loginname = document.getElementById("loginname").value;
+            var password = document.getElementById("password").value;
+            var department = document.getElementById("Select1").value;
+            var position = document.getElementById("Select2").value;
+            if (realname == "") {
+                alert("请填写真实姓名！");
+                return;
+            }
+            else if (loginname == "") {
+                alert("请填写登陆名称！");
+                return;
+            }
+            else if (password == "") {
+                alert("请填写登陆密码！");
+                return;
+            }
+
+            var data =
+	           {
+	               department: department,
+	               position: position,
+	               realname: realname,
+	               loginname: loginname,
+	               password: password
+	           };
+            $.ajax({
+                type: "GET",
+                url: url,
+                data: data,
+                success: function (msg) {
+                    alert("添加成功！");
+                }
+
+            });
+        }
+  function loadu() {	
+		var url = "selectcalendar.php";
+		var dt=document.getElementById("cdate").value;
+		var data =
+	           {
+	               cdate: dt
+	           };
+            $.ajax({
+                type: "GET",
+                url: url,
+                data: data,
+                success: function (msg) {
+                    alert("添加成功！");
+                }
+
+            });	 
+        }	
+    </script>
+</head>
+<body>
+    <form id="form1" name="form1" method="post" float="center" enctype="multipart/form-data">
+    <div id="dd" class="wrapper-dropdown-1" tabindex="1">
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;添加用户</span><br />
+        <br />
+        <span>部门：</span><select id="Select1" name="buildingno">
+            <option value="0">公司</option>
+            <option value="1">市场部</option>
+            <option value="2">BIM部</option>
+            <option value="3">互动媒体部</option>
+            <option value="4">GIS部</option>
+            <option value="5">研发部</option>
+            <option value="6">综合部</option>
+        </select><br />
+        <br />
+        <span>职务：</span><select id="Select2">
+            <option value="0">公司领导</option>
+            <option value="1">部门经理</option>
+            <option value="2">普通员工</option>
+        </select><br />
+        <br />
+        真实姓名：<br />
+        <input type="text" id="realname" name="realname" /><br />
+        <br />
+        登陆用户名：<br />
+        <input type="text" id="loginname" name="loginname" /><br />
+        <br />
+        登陆密码：<br />
+        <input type="text" id="password" name="password" /><br />
+        <br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input id="Button2" type="button" value="添加到数据库" onclick="uploadInfo()" />&nbsp;&nbsp;&nbsp;&nbsp;
+        <input id="Button1" type="button" value="返回主页" onclick="javascrtpt:window.location.href='manage.html'" /><br />
+        <br />
+    </div>
+</body>
+</html>

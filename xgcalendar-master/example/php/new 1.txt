@@ -1,0 +1,52 @@
+<?php
+require_once('includes/prefs.inc.php');
+require_once('includes/db.php');
+$date = new DateTime();
+$timestamp = $date->getTimestamp();
+$dataformat = GetCalendarViewFormat("month" ,$timestamp);
+$clientzone =8;
+$serverzone= TIMEZONE_INDEX;
+$zonediff = $serverzone-$clientzone ; 
+$qstart = $dataformat['start_date'] +$zonediff*3600;
+$qend = $dataformat['end_date'] +$zonediff*3600;		
+$qstart  = date("Y-m-d H:i:s",$qstart);
+$qend = date("Y-m-d H:i:s",$qend);
+@session_start();
+$userid=$_SESSION['id'];
+$pid=$_SESSION['pid'];
+$role=$_SESSION['role'];
+$db = db_connect();	
+$db->query("set names utf-8"); 
+if($role==0){
+	$result = $db->query("SELECT c.`Id`, c.`Subject`, c.`Location`, c.`StartTime`, c.`EndTime`, c.`IsAllDayEvent`,c.`Attendees`, c.`UPAccount`,u.`realname` FROM `calendar` c left join `user` u on c.`UPAccount`=u.`id` where StartTime<'{$qend}' and EndTime>'{$qstart}' and Location='{$pid}' order by StartTime,EndTime");
+}
+else{
+	$result = $db->query("SELECT * FROM calendar where StartTime<'{$qend}' and EndTime>'{$qstart}' and UpAccount='{$userid}' and Location='{$pid}' order by StartTime,EndTime");
+}
+		
+$ret =array();	
+echo " __CURRENTDATA=[";
+if($result)
+{
+	$i = 0;
+	foreach ($result as $row) {
+		
+	
+		$str="'{$row["realname"]}:{$row["Subject"]}',";
+		if($i>0) 
+		{
+			echo ",";
+		}
+		
+		echo "['{$row["Id"]}',".$str."','".TimeToFullJsonTime($row["StartTime"]).",".TimeToFullJsonTime($row["EndTime"]).
+		",".($row["IsAllDayEvent"]?1:0).",".((TimeToTimeStringFormat($row["StartTime"],"Ymd")== TimeToTimeStringFormat($row["EndTime"],"Ymd"))? 0:1).",1,".
+		($row["Category"]=="1"?1:0).",1,'{$row["Attendees"]}','{$row["Location"]}']";
+			
+		$i++;
+	}		
+	
+}
+echo "];\r\n";
+
+//echo " __CURRENTDATA=".preg_replace("/\/(Date\([0-9-]+\))\//", "new \\1", $r).";"; 
+?>
