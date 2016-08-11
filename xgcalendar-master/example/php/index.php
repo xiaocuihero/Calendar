@@ -9,7 +9,7 @@ ob_end_flush();
     <head>
         <title><?php echo msg("title"); ?> </title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <link href="static/theme/Default/main.css"" rel="stylesheet" type="text/css" />
+        <link href="static/theme/Default/main.css" rel="stylesheet" type="text/css" />
         <link href="static/theme/Default/dailog.css" rel="stylesheet" type="text/css" />
         <link href="static/theme/Default/calendar.css" rel="stylesheet" type="text/css" /> 
         <link href="static/theme/Default/dp.css" rel="stylesheet" type="text/css" />   
@@ -50,9 +50,9 @@ ob_end_flush();
                         <span id="txtdatetimeshow">加载</span>
                     </div>
                 </div>
-                <div class="btnseparator"></div>            
-                <div class="btnseparator"></div>         
-                <div class="clear"></div>
+                <div class="btnseparator"><label><input type='checkbox' id="showPlanCheckBox">plan</label></div>            
+                <div class="btnseparator"><label><input type='checkbox' id="showFinishCheckBox">finish</label></div>         
+                <div class="clear"></div>                
             </div>
         </div>
         <div style="padding:1px;">
@@ -82,6 +82,8 @@ ob_end_flush();
         <script src="<?php echo msg("calendar_langpack_url"); ?>" type="text/javascript"></script>  
         <script src="static/javascripts/Plugins/xgcalendar.js?v=1.2.0.4" type="text/javascript"></script>   
         <script type="text/javascript">
+
+
             function GetQueryString(name)
             {
                 var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
@@ -128,6 +130,11 @@ include("_part.php");
                 var dvH = $dv.height() + 2;
                 op.height = _MH - dvH;
                 op.eventItems = __CURRENTDATA;
+                var planOrFinish = new Array();
+                planOrFinish["plan"] = "1";
+                planOrFinish["finish"] = "0";
+                op.extParam = planOrFinish;
+
 
                 var p = $("#gridcontainer").bcalendar(op).BcalGetOp();
                 if (p && p.datestrshow) {
@@ -299,8 +306,29 @@ include("_part.php");
                 $("#changetoenglishau").click(function (e) {
                     location.href = "?lang=en-au";
                 });
+                $("#showPlanCheckBox").click(function (e){
+                     if (e.checked == "true"){
+                            planOrFinish["plan"] = "1";
+                    }else if (e.checked == "false"){
+                            planOrFinish["plan"] = "0";
+                    }
+                    op.extParam = planOrFinish;
+                    $("#gridcontainer").bcalendar(op).BcalGetOp();
+                })
+                $("#showFinishCheckBox").click(function (e){
+                    if (e.checked == "true"){
+                            planOrFinish["finish"] = "1";
+                    }else if (e.checked == "false"){
+                            planOrFinish["finish"] = "0";
+                    }
+                    op.extParam = planOrFinish;
+                    $("#gridcontainer").bcalendar(op).BcalGetOp();
+                })     
 
             });
+
+            
+
         </script>
     </body>
 </html>
