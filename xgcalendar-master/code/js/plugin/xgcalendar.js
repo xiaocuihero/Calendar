@@ -1,4 +1,4 @@
-﻿/*
+/*
 * Copyright (c) 2013 Xuanye.wan
 * Last update: 2013-02-1
 * Author:假正经哥哥(xuanye)
@@ -301,7 +301,7 @@
         function render() {
             //需要的参数
             //viewType, showday, events, config
-            var showday = new Date(option.showday.getFullYear(), option.showday.getMonth(), option.showday.getDate());
+            var showday = new Date(option.showday.getFullYear(), option.showday.getMonth(), option.showday.getDate());            
             var events = option.eventItems;
             var config = { view: option.view, weekstartday: option.weekstartday, theme: option.theme };
             if (option.view == "day" || option.view == "week") {

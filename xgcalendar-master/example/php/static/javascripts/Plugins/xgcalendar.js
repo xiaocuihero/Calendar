@@ -303,6 +303,24 @@
             //viewType, showday, events, config
             var showday = new Date(option.showday.getFullYear(), option.showday.getMonth(), option.showday.getDate());
             var events = option.eventItems;
+            var extParams = option.extParam;
+            var categoryIndex = 7;
+            if (extParams["plan"] == "1" && extParams["finish"] == "1"){                
+            }else if (extParams["plan"] == "1"){
+                events = Array();
+                for(ele in option.eventItems){
+                   if (option.eventItems[ele][categoryIndex] == "0"){
+                        events.push(option.eventItems[ele]);
+                   }
+                }
+            }else if (extParams["finish"] == "1"){
+                events = Array();
+                for(ele in option.eventItems){
+                   if (option.eventItems[ele][categoryIndex] == "1"){
+                        events.push(option.eventItems[ele]);
+                   }
+                }
+            }
             var config = { view: option.view, weekstartday: option.weekstartday, theme: option.theme };
             if (option.view == "day" || option.view == "week") {
                 var $dvtec = $("#dvtec");
