@@ -184,15 +184,12 @@
                 die('Could not connect: ' . mysqli_error());
             }
             if ($u != 0) {
-                print_r(1);
                 if ($s == 4) {
                     $sql = "SELECT p.`id`, p.`projectname`, p.`projectcontent`, p.`projectmonitorid`, p.`charge`, concat(p.`startdate`,'~', p.`enddate`), p.`status`, p.`site`,p.`contract`,u.`realname`,m.`progress`,m.`remainwork`,m.`returnmoney`,un.`cname` FROM `project` p left join `user` u on p.`projectmonitorid`=u.`id` left join (SELECT `projectid`,max(`progress`) progress, `remainwork`, `monthplan`, `returnmoney` FROM `projectreport` WHERE `flag`=1 group by `projectid`) m on p.id=m.projectid left join (SELECT `Location`,group_concat(distinct u.realname) cname FROM `calendar` c left join `user` u on c.UPAccount=u.id group by c.`Location`) un on p.id=un.Location WHERE p.projectmonitorid=$u";
                 } else {
                     $sql = "SELECT p.`id`, p.`projectname`, p.`projectcontent`, p.`projectmonitorid`, p.`charge`, concat(p.`startdate`,'~', p.`enddate`), p.`status`, p.`site`,p.`contract`,u.`realname`,m.`progress`,m.`remainwork`,m.`returnmoney`,un.`cname` FROM `project` p left join `user` u on p.`projectmonitorid`=u.`id` left join (SELECT `projectid`,max(`progress`) progress, `remainwork`, `monthplan`, `returnmoney` FROM `projectreport` WHERE `flag`=1 group by `projectid`) m on p.id=m.projectid left join (SELECT `Location`,group_concat(distinct u.realname) cname FROM `calendar` c left join `user` u on c.UPAccount=u.id group by c.`Location`) un on p.id=un.Location WHERE p.status=$s and p.projectmonitorid=$u";
                 }
             } else {
-                print_r(2);
-
                 $para6 = "-1,";
                 $para4 = "-1,";
                 if ($d != 0) {

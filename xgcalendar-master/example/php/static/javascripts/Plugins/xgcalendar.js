@@ -1,4 +1,4 @@
-﻿/*
+/*
 * Copyright (c) 2013 Xuanye.wan
 * Last update: 2013-02-1
 * Author:xuanye
