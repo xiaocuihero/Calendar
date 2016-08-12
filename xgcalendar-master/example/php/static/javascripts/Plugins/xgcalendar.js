@@ -320,6 +320,8 @@
                         events.push(option.eventItems[ele]);
                    }
                 }
+            }else{
+                events = Array();
             }
             var config = { view: option.view, weekstartday: option.weekstartday, theme: option.theme };
             if (option.view == "day" || option.view == "week") {
