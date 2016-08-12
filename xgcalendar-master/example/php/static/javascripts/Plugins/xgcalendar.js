@@ -1807,6 +1807,7 @@
                 temparr.push(i18n.xgcalendar.create_event, '" type="button"/>&nbsp; <SPAN id="bbit-cal-editLink" class="lk">');
                 temparr.push(i18n.xgcalendar.update_detail, ' <StrONG>»</StrONG></SPAN></div></div></div><tr><td><div id="bl1" class="bubble-corner"><div class="bubble-sprite bubble-bl"></div></div><td><div class="bubble-bottom"></div><td><div id="br1" class="bubble-corner"><div class="bubble-sprite bubble-br"></div></div></tr></tbody></table><div id="bubbleClose1" class="bubble-closebutton"></div><div id="prong2" class="prong"><div class=bubble-sprite></div></div></div>');
                 var tempquickAddHanler = temparr.join("");
+                console.log(i18n.xgcalendar.example);
                 temparr = null;
                 $(document.body).append(tempquickAddHanler);
                 buddle = $("#bbit-cal-buddle");

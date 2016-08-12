@@ -70,7 +70,6 @@ ob_end_flush();
                             &nbsp;
                         </div>   
                     </div>
-
                 </div>
                 <script src="static/javascripts/jquery.min.js" type="text/javascript"></script>  
                 <script src="static/javascripts/Common.js" type="text/javascript"></script>    
@@ -122,78 +121,78 @@ ob_end_flush();
                     quickAddUrl: "calendar.php?mode=quickadd&pid=" + GetQueryString("pid"),
                     quickUpdateUrl: "calendar.php?mode=quickupdate&pid=" + GetQueryString("pid"),
                     quickDeleteUrl: "calendar.php?mode=quickdelete&pid=" + GetQueryString("pid") //快速删除日程的
-                            /* timeFormat:" hh:mm t", //t表示上午下午标识,h 表示12小时制的小时，H表示24小时制的小时,m表示分钟
-                            tgtimeFormat:"ht" //同上 */
-                        };
-                        var $dv = $("#calhead");
-                        var _MH = document.documentElement.clientHeight;
-                        var dvH = $dv.height() + 2;
-                        op.height = _MH - dvH;
-                        op.eventItems = __CURRENTDATA;
-                        var planOrFinish = new Array();
-                        planOrFinish["plan"] = "1";
-                        planOrFinish["finish"] = "0";
-                        op.extParam = planOrFinish;
+                    /* timeFormat:" hh:mm t", //t表示上午下午标识,h 表示12小时制的小时，H表示24小时制的小时,m表示分钟
+                    tgtimeFormat:"ht" //同上 */
+                };
+                var $dv = $("#calhead");
+                var _MH = document.documentElement.clientHeight;
+                var dvH = $dv.height() + 2;
+                op.height = _MH - dvH;
+                op.eventItems = __CURRENTDATA;
+                var planOrFinish = new Array();
+                planOrFinish["plan"] = "1";
+                planOrFinish["finish"] = "0";
+                op.extParam = planOrFinish;
 
 
-                        var p = $("#gridcontainer").bcalendar(op).BcalGetOp();
+                var p = $("#gridcontainer").bcalendar(op).BcalGetOp();
+                if (p && p.datestrshow) {
+                    $("#txtdatetimeshow").text(p.datestrshow);
+                }
+                $("#caltoolbar").noSelect();
+
+                $("#hdtxtshow").datepicker({picker: "#txtdatetimeshow", showtarget: $("#txtdatetimeshow"),
+                    onReturn: function (r) {
+                        var p = $("#gridcontainer").BCalGoToday(r).BcalGetOp();
                         if (p && p.datestrshow) {
                             $("#txtdatetimeshow").text(p.datestrshow);
                         }
-                        $("#caltoolbar").noSelect();
+                    }
+                });
+                function cal_beforerequest(type)
+                {
+                    var t = "<?php echo ucfmsg("loaddatamsg") ?>";
+                    switch (type)
+                    {
+                        case 1:
+                        t = "<?php echo ucfmsg("loaddatamsg"); ?>";
+                        break;
+                        case 2:
+                        case 3:
+                        case 4:
+                        t = "<?php echo ucfmsg("processdatamsg"); ?>";
+                        break;
+                    }
+                    $("#errorpannel").hide();
+                    $("#loadingpannel").html(t).show();
+                }
+                function cal_afterrequest(type)
+                {
+                    switch (type)
+                    {
+                        case 1:
+                        $("#loadingpannel").hide();
+                        break;
+                        case 2:
+                        case 3:
+                        case 4:
+                        $("#loadingpannel").html("<?php echo ucfmsg("successmsg"); ?>");
+                        window.setTimeout(function () {
+                            $("#loadingpannel").hide();
+                        }, 2000);
+                        break;
+                    }
 
-                        $("#hdtxtshow").datepicker({picker: "#txtdatetimeshow", showtarget: $("#txtdatetimeshow"),
-                            onReturn: function (r) {
-                                var p = $("#gridcontainer").BCalGoToday(r).BcalGetOp();
-                                if (p && p.datestrshow) {
-                                    $("#txtdatetimeshow").text(p.datestrshow);
-                                }
-                            }
-                        });
-                        function cal_beforerequest(type)
-                        {
-                            var t = "<?php echo ucfmsg("loaddatamsg") ?>";
-                            switch (type)
-                            {
-                                case 1:
-                                t = "<?php echo ucfmsg("loaddatamsg"); ?>";
-                                break;
-                                case 2:
-                                case 3:
-                                case 4:
-                                t = "<?php echo ucfmsg("processdatamsg"); ?>";
-                                break;
-                            }
-                            $("#errorpannel").hide();
-                            $("#loadingpannel").html(t).show();
-                        }
-                        function cal_afterrequest(type)
-                        {
-                            switch (type)
-                            {
-                                case 1:
-                                $("#loadingpannel").hide();
-                                break;
-                                case 2:
-                                case 3:
-                                case 4:
-                                $("#loadingpannel").html("<?php echo ucfmsg("successmsg"); ?>");
-                                window.setTimeout(function () {
-                                    $("#loadingpannel").hide();
-                                }, 2000);
-                                break;
-                            }
-
-                        }
-                        function cal_onerror(type, data)
-                        {
-                            $("#errorpannel").show();
-                        }
-                        function Edit(data)
-                        {
-                            var eurl = "123.php";
-                            if (data)
-                            {
+                }
+                function cal_onerror(type, data)
+                {
+                    $("#errorpannel").show();
+                }
+                function Edit(data)
+                {
+                    var eurl = "myEditWindow.php";
+                    if (data)
+                    {
                         //var url = StrFormat(eurl,data);
                         var url = eurl + "?id=" + data[0] + "&name=" + data[1];
                         OpenModelWindow(url, {width: 600, height: 400, caption: "<?php echo ucfmsg("editcalendar"); ?>", onclose: function () {
@@ -314,8 +313,7 @@ ob_end_flush();
                         planOrFinish["plan"] = "0";
                     }
                     op.extParam = planOrFinish;
-                    console.log("plan" + this.checked);
-                    // $(this).html("check" + $(this).checked);                    
+                    console.log("plan" + this.checked);               
                     $("#gridcontainer").bcalendar(op).BcalGetOp();
                 });
                 $("#finishCheckBox").change(function(){                    
@@ -325,17 +323,10 @@ ob_end_flush();
                         planOrFinish["finish"] = "0";
                     }
                     op.extParam = planOrFinish;
-                    console.log("finish" + this.checked);
-                    // $(this).html("check" + $(this).checked);                    
+                    console.log("finish" + this.checked);                 
                     $("#gridcontainer").bcalendar(op).BcalGetOp();
                 });
-
-
-
             });
-
-
-
         </script>
     </body>
     </html>

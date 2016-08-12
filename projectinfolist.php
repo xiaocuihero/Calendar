@@ -242,16 +242,7 @@
                         <td class="row"><?php echo $site ?></td> 
                         <td class="row"><?php echo $charge ?></td>
                         <td class="row"><?php echo $realname ?></td> 
-        <!--                        <td class="row"><select id="cperson<?php echo $id ?>" name="cperson">                     
-                            </select>
-                            <script type="text/javascript">
-                                var cname = "<?php echo $cname; ?>";
-                                arr2 = cname.split(',');
-                                for (var i = 0; i < arr2.length; i++) {
-                                    var newItem = new Option(arr2[i], arr2[i]);
-                                    document.getElementById("cperson<?php echo $id ?>").options.add(newItem);
-                                }
-                            </script>-->
+
                         <td class="row" style="max-width:200;word-wrap: break-word"><?php echo $cname ?></td> 
                         <td class="row"><?php echo $pdate ?></td>
                         <td class="row"><?php echo $pprogress ?></td>
