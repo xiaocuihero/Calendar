@@ -306,6 +306,13 @@ ob_end_flush();
                     location.href = "?lang=en-au";
                 });
 
+                var dateTime = new Date();
+                if (dateTime.getHours() >= 17 && dateTime.getMinutes() >= 30){
+                    $("#finishCheckBox").attr("checked","checked");
+                }else{
+                    $("#planCheckBox").attr("checked","checked");
+                }
+
                 $("#planCheckBox").change(function(){                    
                     if(this.checked){
                         planOrFinish["plan"] = "1";
@@ -313,7 +320,6 @@ ob_end_flush();
                         planOrFinish["plan"] = "0";
                     }
                     op.extParam = planOrFinish;
-                    console.log("plan" + this.checked);               
                     $("#gridcontainer").bcalendar(op).BcalGetOp();
                 });
                 $("#finishCheckBox").change(function(){                    
@@ -323,7 +329,6 @@ ob_end_flush();
                         planOrFinish["finish"] = "0";
                     }
                     op.extParam = planOrFinish;
-                    console.log("finish" + this.checked);                 
                     $("#gridcontainer").bcalendar(op).BcalGetOp();
                 });
             });

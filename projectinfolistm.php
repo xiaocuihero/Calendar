@@ -174,11 +174,8 @@ while($row = mysqli_fetch_row($result)){
 <td class="row"><?php echo $site ?></td> 
 <td class="row"><?php echo $charge ?></td>
 <td class="row"><?php echo $realname ?></td> 
-<td class="row"><?php echo $cname ?><td>
+<td class="row"><?php echo $cname ?></td>
 
-
-
-</td> 
 <td class="row"><?php echo $pdate ?></td>
 <td class="row"><?php echo $pprogress ?></td>
 <td class="row"><?php echo $returnmoney ?></td>  
@@ -277,16 +274,8 @@ while($row = mysqli_fetch_row($result2)){
 <td class="row"><?php echo $site ?></td> 
 <td class="row"><?php echo $charge ?></td>
 <td class="row"><?php echo $realname ?></td> 
-<td class="row"><select id="cperson<?php echo $id ?>" name="cperson">                     
-        </select>
- <script type="text/javascript"> 
- var cname="<?php echo  $cname; ?>";
- arr2=cname.split(',');
- for(var i=0;i<arr2.length;i++){
-	var newItem=new Option(arr2[i],arr2[i]);
-	document.getElementById("cperson<?php echo $id ?>").options.add(newItem);
-}
- </script></td> 
+<td class="row"><?php echo $cname ?></td> 
+
 <td class="row"><?php echo $pdate ?></td>
 <td class="row"><?php echo $pprogress ?></td>
 <td class="row"><?php echo $returnmoney ?></td>  

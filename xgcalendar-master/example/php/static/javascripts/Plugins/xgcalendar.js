@@ -42,7 +42,7 @@
                 "s+": this.getSeconds(),
                 "q+": Math.floor((this.getMonth() + 3) / 3),
                 "w": "0123456".indexOf(this.getDay()),
-				"t":this.getHours()<12?i18n.xgcalendar.dateformat.AM:i18n.xgcalendar.dateformat.PM,
+                "t":this.getHours()<12?i18n.xgcalendar.dateformat.AM:i18n.xgcalendar.dateformat.PM,
                 "W": __WDAY[this.getDay()],
                 "\\bL\\b": __MonthName[this.getMonth()] //non-standard
             };
@@ -86,25 +86,25 @@
             switch (interval) {
                 case "d": //天
                 case "w":
-                    d1 = new Date(d1.getFullYear(), d1.getMonth(), d1.getDate());
-                    d2 = new Date(d2.getFullYear(), d2.getMonth(), d2.getDate());
+                d1 = new Date(d1.getFullYear(), d1.getMonth(), d1.getDate());
+                d2 = new Date(d2.getFullYear(), d2.getMonth(), d2.getDate());
                     break;  //w
-                case "h":
+                    case "h":
                     d1 = new Date(d1.getFullYear(), d1.getMonth(), d1.getDate(), d1.getHours());
                     d2 = new Date(d2.getFullYear(), d2.getMonth(), d2.getDate(), d2.getHours());
                     break; //h
-                case "n":
+                    case "n":
                     d1 = new Date(d1.getFullYear(), d1.getMonth(), d1.getDate(), d1.getHours(), d1.getMinutes());
                     d2 = new Date(d2.getFullYear(), d2.getMonth(), d2.getDate(), d2.getHours(), d2.getMinutes());
                     break;
-                case "s":
+                    case "s":
                     d1 = new Date(d1.getFullYear(), d1.getMonth(), d1.getDate(), d1.getHours(), d1.getMinutes(), d1.getSeconds());
                     d2 = new Date(d2.getFullYear(), d2.getMonth(), d2.getDate(), d2.getHours(), d2.getMinutes(), d2.getSeconds());
                     break;
-            }
-            var t1 = d1.getTime(), t2 = d2.getTime();
-            var diff = NaN;
-            switch (interval) {
+                }
+                var t1 = d1.getTime(), t2 = d2.getTime();
+                var diff = NaN;
+                switch (interval) {
                 case "y": diff = d2.getFullYear() - d1.getFullYear(); break; //y
                 case "m": diff = (d2.getFullYear() - d1.getFullYear()) * 12 + d2.getMonth() - d1.getMonth(); break;    //m
                 case "d": diff = Math.floor(t2 / 86400000) - Math.floor(t1 / 86400000); break;
@@ -178,13 +178,13 @@
         }
 
         var cc = $("#cal-month-cc");
-	    if (cc.length == 0) {
-           $( "<div id='cal-month-cc' class='cc'><div id='cal-month-cc-header'><div class='cc-close' id='cal-month-closebtn'></div><div id='cal-month-cc-title' class='cc-title'></div></div><div id='cal-month-cc-body' class='cc-body'><div id='cal-month-cc-content' class='st-contents'><table class='st-grid' cellSpacing='0' cellPadding='0'><tbody></tbody></table></div></div></div>").appendTo(document.body);
-        }
-		cc=null;
-		var gridcontainer = $(this);
-        gridcontainer.css("position","relative");
-        option = $.extend(def, option);
+        if (cc.length == 0) {
+         $( "<div id='cal-month-cc' class='cc'><div id='cal-month-cc-header'><div class='cc-close' id='cal-month-closebtn'></div><div id='cal-month-cc-title' class='cc-title'></div></div><div id='cal-month-cc-body' class='cc-body'><div id='cal-month-cc-content' class='st-contents'><table class='st-grid' cellSpacing='0' cellPadding='0'><tbody></tbody></table></div></div></div>").appendTo(document.body);
+     }
+     cc=null;
+     var gridcontainer = $(this);
+     gridcontainer.css("position","relative");
+     option = $.extend(def, option);
         //如果快速更新链接陪游配置，则快速新增不能实现
         if (option.quickUpdateUrl == null || option.quickUpdateUrl == "") {
             option.enableDrag = false;
@@ -305,20 +305,23 @@
             var events = option.eventItems;
             var extParams = option.extParam;
             var categoryIndex = 7;
-            if (extParams["plan"] == "1" && extParams["finish"] == "1"){                
+            if (extParams["plan"] == "1" && extParams["finish"] == "1"){     
+                var events = option.eventItems;        
             }else if (extParams["plan"] == "1"){
                 events = Array();
                 for(ele in option.eventItems){
-                   if (option.eventItems[ele][categoryIndex] == "0"){
+                    if (option.eventItems[ele][categoryIndex] == "0")
+                    {
                         events.push(option.eventItems[ele]);
-                   }
-                }
+                    }
+                }        
             }else if (extParams["finish"] == "1"){
                 events = Array();
                 for(ele in option.eventItems){
-                   if (option.eventItems[ele][categoryIndex] == "1"){
+                    if(option.eventItems[ele][categoryIndex] == "1")
+                    {
                         events.push(option.eventItems[ele]);
-                   }
+                    }
                 }
             }else{
                 events = Array();
@@ -332,17 +335,17 @@
             }
             switch (option.view) {
                 case "day":
-                    BuildDaysAndWeekView(showday, 1, events, config);
-                    break;
+                BuildDaysAndWeekView(showday, 1, events, config);
+                break;
                 case "week":
-                    BuildDaysAndWeekView(showday, 7, events, config);
-                    break;
+                BuildDaysAndWeekView(showday, 7, events, config);
+                break;
                 case "month":
-                    BuildMonthView(showday, events, config);
-                    break;
+                BuildMonthView(showday, events, config);
+                break;
                 default:
-                    alert(i18n.xgcalendar.no_implement);
-                    break;
+                alert(i18n.xgcalendar.no_implement);
+                break;
             }
             initevents(option.view); //初始化时间
             ResizeView();
@@ -502,50 +505,50 @@
                         var ge = de[j];
                         for (var La = ge.st.p, Ia = 0; y[Ia] > La; ) Ia++;
                         ge.PO = Ia; ge.ne = []; //PO是指前面有多少个日程
-                        y[Ia] = ge.et.p || 1440;
-                        x[Ia] = ge;
-                        if (!D[Ia]) {
-                            D[Ia] = [];
-                        }
-                        D[Ia].push(ge);
-                        if (Ia != 0) {
+                    y[Ia] = ge.et.p || 1440;
+                    x[Ia] = ge;
+                    if (!D[Ia]) {
+                        D[Ia] = [];
+                    }
+                    D[Ia].push(ge);
+                    if (Ia != 0) {
                             ge.pe = [x[Ia - 1]]; //前面日程
                             x[Ia - 1].ne.push(ge); //后面日程
                         }
                         for (Ia = Ia + 1; y[Ia] <= La; ) Ia++;
-                        if (x[Ia]) {
-                            var k = x[Ia];
-                            ge.ne.push(k);
-                            k.pe.push(ge);
+                            if (x[Ia]) {
+                                var k = x[Ia];
+                                ge.ne.push(k);
+                                k.pe.push(ge);
+                            }
+                            ge.width = 1 / (ge.PO + 1);
+                            ge.left = 1 - ge.width;
                         }
-                        ge.width = 1 / (ge.PO + 1);
-                        ge.left = 1 - ge.width;
-                    }
-                    var k = Array.prototype.concat.apply([], D);
-                    x = y = D = null;
-                    var t = k.length;
-                    for (var y = t; y--; ) {
-                        var H = 1;
-                        var La = 0;
-                        var x = k[y];
-                        for (var D = x.ne.length; D--; ) {
-                            var Ia = x.ne[D];
-                            La = Math.max(La, Ia.VL);
-                            H = Math.min(H, Ia.left)
+                        var k = Array.prototype.concat.apply([], D);
+                        x = y = D = null;
+                        var t = k.length;
+                        for (var y = t; y--; ) {
+                            var H = 1;
+                            var La = 0;
+                            var x = k[y];
+                            for (var D = x.ne.length; D--; ) {
+                                var Ia = x.ne[D];
+                                La = Math.max(La, Ia.VL);
+                                H = Math.min(H, Ia.left)
+                            }
+                            x.VL = La + 1;
+                            x.width = H / (x.PO + 1);
+                            x.left = H - x.width;
                         }
-                        x.VL = La + 1;
-                        x.width = H / (x.PO + 1);
-                        x.left = H - x.width;
-                    }
-                    for (var y = 0; y < t; y++) {
-                        var x = k[y];
-                        x.left = 0;
-                        if (x.pe) for (var D = x.pe.length; D--; ) {
-                            var H = x.pe[D];
-                            x.left = Math.max(x.left, H.left + H.width);
-                        }
-                        var p = (1 - x.left) / x.VL;
-                        x.width = Math.max(x.width, p);
+                        for (var y = 0; y < t; y++) {
+                            var x = k[y];
+                            x.left = 0;
+                            if (x.pe) for (var D = x.pe.length; D--; ) {
+                                var H = x.pe[D];
+                                x.left = Math.max(x.left, H.left + H.width);
+                            }
+                            var p = (1 - x.left) / x.VL;
+                            x.width = Math.max(x.width, p);
                         x.aQ = Math.min(1 - x.left, x.width + 0.7 * p); //width的偏移
                     }
                     de = null;
@@ -746,7 +749,7 @@
                     ret.push("[" + i18n.xgcalendar.repeat_event + "]", $.browser.mozilla ? "" : "\r\n");
                 }
             }
-			ret.push( eventshow, $.browser.mozilla ? "" : "\r\n");
+            ret.push( eventshow, $.browser.mozilla ? "" : "\r\n");
             // ret.push(i18n.xgcalendar.time + ":", timeshow, $.browser.mozilla ? "" : "\r\n", i18n.xgcalendar.event + ":", eventshow, $.browser.mozilla ? "" : "\r\n", i18n.xgcalendar.location + ":", locationshow);
             // if (attendsshow != "") {
                 // ret.push($.browser.mozilla ? "" : "\r\n", i18n.xgcalendar.participant + ":", attendsshow);
@@ -1090,7 +1093,7 @@
                     p.extendClass = "st-ad-mpad ";
                 }
                 if (ef)
-                { arrm.push(mr); }
+                    { arrm.push(mr); }
                 p.extendHTML = arrm.join("");
 
             }
@@ -1105,7 +1108,7 @@
             content.push(Tp(sp, { content: cen }));
             content.push(i);
             if (e.reevent)
-            { content.push(i2); }
+                { content.push(i2); }
             p.content = content.join("");
             return Tp(__ALLDAYEVENTTEMP, p);
         }
@@ -1124,7 +1127,7 @@
                 var param = [
                 { name: "showdate", value: dateFormat.call(option.showday, i18n.xgcalendar.dateformat.fulldayvalue) },
                 { name: "viewtype", value: option.view },
-				 { name: "timezone", value: zone }
+                { name: "timezone", value: zone }
                 ];
                 if (option.extParam) {
                     for (var pi = 0; pi < option.extParam.length; pi++) {
@@ -1137,7 +1140,7 @@
                     data: param,
                     success:function(datastr) {
                         datastr =datastr.replace(/"\\\/(Date\([0-9-]+\))\\\/"/gi, 'new $1');
-						var data=eval('('+datastr+')');  
+                        var data=eval('('+datastr+')');  
                         if (data != null && data.error != null) {
                             if (option.onRequestDataError) {
                                 option.onRequestDataError(1, data);
@@ -1153,20 +1156,20 @@
                         option.isloading = false;
                     },
                     error: function(data) {
-						alert("error");
-                        try {
-                            if (option.onRequestDataError) {
-                                option.onRequestDataError(1, data);
-                            } else {
-                                alert(i18n.xgcalendar.get_data_exception);
-                            }
-                            if (option.onAfterRequestData && $.isFunction(option.onAfterRequestData)) {
-                                option.onAfterRequestData(1);
-                            }
-                            option.isloading = false;
-                        } catch (e) { }
-                    }
-                });
+                      alert("error");
+                      try {
+                        if (option.onRequestDataError) {
+                            option.onRequestDataError(1, data);
+                        } else {
+                            alert(i18n.xgcalendar.get_data_exception);
+                        }
+                        if (option.onAfterRequestData && $.isFunction(option.onAfterRequestData)) {
+                            option.onAfterRequestData(1);
+                        }
+                        option.isloading = false;
+                    } catch (e) { }
+                }
+            });
             }
             else {
                 alert("url" + i18n.xgcalendar.i_undefined);
@@ -1257,43 +1260,43 @@
             }
         }
         //region 工具函数开始 {
-        function weekormonthtoday(e) {
-            var th = $(this);
-            var daystr = th.attr("abbr");
-            option.showday = strtodate(daystr + " 00:00");
-            option.view = "day";
-            render();
-            if (option.onWeekOrMonthToDay) {
-                option.onWeekOrMonthToDay(option);
+            function weekormonthtoday(e) {
+                var th = $(this);
+                var daystr = th.attr("abbr");
+                option.showday = strtodate(daystr + " 00:00");
+                option.view = "day";
+                render();
+                if (option.onWeekOrMonthToDay) {
+                    option.onWeekOrMonthToDay(option);
+                }
+                return false;
             }
-            return false;
-        }
-        function gP(h, m) {
-            return h * 42 + parseInt(m / 60 * 42);
-        }
-        function gW(ts1, ts2) {
-            var t1 = ts1 / 42;
-            var t2 = parseInt(t1);
-            var t3 = t1 - t2 >= 0.5 ? 30 : 0;
-            var t4 = ts2 / 42;
-            var t5 = parseInt(t4);
-            var t6 = t4 - t5 >= 0.5 ? 30 : 0;
-            return { sh: t2, sm: t3, eh: t5, em: t6, h: ts2 - ts1 };
-        }
-        function gH(y1, y2, pt) {
-            var sy1 = Math.min(y1, y2);
-            var sy2 = Math.max(y1, y2);
-            var t1 = (sy1 - pt) / 42;
-            var t2 = parseInt(t1);
-            var t3 = t1 - t2 >= 0.5 ? 30 : 0;
-            var t4 = (sy2 - pt) / 42;
-            var t5 = parseInt(t4);
-            var t6 = t4 - t5 >= 0.5 ? 30 : 0;
-            return { sh: t2, sm: t3, eh: t5, em: t6, h: sy2 - sy1 };
-        }
-        function pZero(n) {
-            return n < 10 ? "0" + n : "" + n;
-        }
+            function gP(h, m) {
+                return h * 42 + parseInt(m / 60 * 42);
+            }
+            function gW(ts1, ts2) {
+                var t1 = ts1 / 42;
+                var t2 = parseInt(t1);
+                var t3 = t1 - t2 >= 0.5 ? 30 : 0;
+                var t4 = ts2 / 42;
+                var t5 = parseInt(t4);
+                var t6 = t4 - t5 >= 0.5 ? 30 : 0;
+                return { sh: t2, sm: t3, eh: t5, em: t6, h: ts2 - ts1 };
+            }
+            function gH(y1, y2, pt) {
+                var sy1 = Math.min(y1, y2);
+                var sy2 = Math.max(y1, y2);
+                var t1 = (sy1 - pt) / 42;
+                var t2 = parseInt(t1);
+                var t3 = t1 - t2 >= 0.5 ? 30 : 0;
+                var t4 = (sy2 - pt) / 42;
+                var t5 = parseInt(t4);
+                var t6 = t4 - t5 >= 0.5 ? 30 : 0;
+                return { sh: t2, sm: t3, eh: t5, em: t6, h: sy2 - sy1 };
+            }
+            function pZero(n) {
+                return n < 10 ? "0" + n : "" + n;
+            }
         //返回主题的颜色配置
         function tc(d) {
             function zc(c, i) {
@@ -1310,164 +1313,164 @@
             return temp.replace(/\{([\d])\}/g, function(s1, s2) { var s = dataarry[s2]; if (typeof (s) != "undefined") { return encodeURIComponent(s); } else { return ""; } });
         }
         function fomartTimeShow(h,m,f) {
-			var o={
-			    "h+":h>12?h-12:h,
-                "H+":h,
-                "m+":m,
-                "s+":0,
-				"t":h<12?i18n.xgcalendar.dateformat.AM:i18n.xgcalendar.dateformat.PM
-			};
-            for (var k in o) {
-                if (new RegExp("(" + k + ")").test(f))
-                    f = f.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
-            }
-			return f;
-
+         var o={
+             "h+":h>12?h-12:h,
+             "H+":h,
+             "m+":m,
+             "s+":0,
+             "t":h<12?i18n.xgcalendar.dateformat.AM:i18n.xgcalendar.dateformat.PM
+         };
+         for (var k in o) {
+            if (new RegExp("(" + k + ")").test(f))
+                f = f.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
         }
-        function getymformat(date, comparedate, isshowtime, isshowweek, showcompare) {
-            var showyear = isshowtime != undefined ? (date.getFullYear() != new Date().getFullYear()) : true;
-            var showmonth = true;
-            var showday = true;
-            var showtime = isshowtime || false;
-            var showweek = isshowweek || false;
-            if (comparedate) {
-                showyear = comparedate.getFullYear() != date.getFullYear();
+        return f;
+
+    }
+    function getymformat(date, comparedate, isshowtime, isshowweek, showcompare) {
+        var showyear = isshowtime != undefined ? (date.getFullYear() != new Date().getFullYear()) : true;
+        var showmonth = true;
+        var showday = true;
+        var showtime = isshowtime || false;
+        var showweek = isshowweek || false;
+        if (comparedate) {
+            showyear = comparedate.getFullYear() != date.getFullYear();
                 //showmonth = comparedate.getFullYear() != date.getFullYear() || date.getMonth() != comparedate.getMonth();
                 if (comparedate.getFullYear() == date.getFullYear() &&
-					date.getMonth() == comparedate.getMonth() &&
-					date.getDate() == comparedate.getDate()
-					) {
+                   date.getMonth() == comparedate.getMonth() &&
+                   date.getDate() == comparedate.getDate()
+                   ) {
                     showyear = showmonth = showday = showweek = false;
-                }
-            }
-
-            var a = [];
-            if (showyear) {
-                a.push(i18n.xgcalendar.dateformat.fulldayshow)
-            } else if (showmonth) {
-                a.push(i18n.xgcalendar.dateformat.Md3)
-            } else if (showday) {
-                a.push(i18n.xgcalendar.dateformat.day);
-            }
-            a.push(showweek ? " (W)" : "", showtime ? option.timeFormat : "");
-            return a.join("");
-        }
-        function CalDateShow(startday, endday, isshowtime, isshowweek) {
-            if (!endday) {
-                return dateFormat.call(startday, getymformat(startday, null, isshowtime));
-            } else {
-                var strstart = dateFormat.call(startday, getymformat(startday, null, isshowtime, isshowweek));
-                var strend = dateFormat.call(endday, getymformat(endday, startday, isshowtime, isshowweek));
-                var join = (strend != "" ? " - " : "");
-                return [strstart, strend].join(join);
             }
         }
 
-        function dochange() {
-            var d = getRdate();
-            var loaded = checkInEr(d.start, d.end);
-            if (!loaded) {
-                populate();
-            }
+        var a = [];
+        if (showyear) {
+            a.push(i18n.xgcalendar.dateformat.fulldayshow)
+        } else if (showmonth) {
+            a.push(i18n.xgcalendar.dateformat.Md3)
+        } else if (showday) {
+            a.push(i18n.xgcalendar.dateformat.day);
         }
+        a.push(showweek ? " (W)" : "", showtime ? option.timeFormat : "");
+        return a.join("");
+    }
+    function CalDateShow(startday, endday, isshowtime, isshowweek) {
+        if (!endday) {
+            return dateFormat.call(startday, getymformat(startday, null, isshowtime));
+        } else {
+            var strstart = dateFormat.call(startday, getymformat(startday, null, isshowtime, isshowweek));
+            var strend = dateFormat.call(endday, getymformat(endday, startday, isshowtime, isshowweek));
+            var join = (strend != "" ? " - " : "");
+            return [strstart, strend].join(join);
+        }
+    }
 
-        function checkInEr(start, end) {
-            var ll = option.loadDateR.length;
-            if (ll == 0) {
-                return false;
+    function dochange() {
+        var d = getRdate();
+        var loaded = checkInEr(d.start, d.end);
+        if (!loaded) {
+            populate();
+        }
+    }
+
+    function checkInEr(start, end) {
+        var ll = option.loadDateR.length;
+        if (ll == 0) {
+            return false;
+        }
+        var r = false;
+        var r2 = false;
+        for (var i = 0; i < ll; i++) {
+            r = false, r2 = false;
+            var dr = option.loadDateR[i];
+            if (start >= dr.startdate && start <= dr.enddate) {
+                r = true;
             }
-            var r = false;
-            var r2 = false;
-            for (var i = 0; i < ll; i++) {
-                r = false, r2 = false;
-                var dr = option.loadDateR[i];
-                if (start >= dr.startdate && start <= dr.enddate) {
-                    r = true;
-                }
-                if (dateFormat.call(start, "yyyyMMdd") == dateFormat.call(dr.startdate, "yyyyMMdd") || dateFormat.call(start, "yyyyMMdd") == dateFormat.call(dr.enddate, "yyyyMMdd")) {
-                    r = true;
-                }
-                if (!end)
+            if (dateFormat.call(start, "yyyyMMdd") == dateFormat.call(dr.startdate, "yyyyMMdd") || dateFormat.call(start, "yyyyMMdd") == dateFormat.call(dr.enddate, "yyyyMMdd")) {
+                r = true;
+            }
+            if (!end)
                 { r2 = true; }
+            else {
+                if (end >= dr.startdate && end <= dr.enddate) {
+                    r2 = true;
+                }
+                if (dateFormat.call(end, "yyyyMMdd") == dateFormat.call(dr.startdate, "yyyyMMdd") || dateFormat.call(end, "yyyyMMdd") == dateFormat.call(dr.enddate, "yyyyMMdd")) {
+                    r2 = true;
+                }
+            }
+            if (r && r2) {
+                break;
+            }
+        }
+        return r && r2;
+    }
+
+    function buildtempdayevent(sh, sm, eh, em, h, title, w, resize, thindex) {
+        var theme = thindex != undefined && thindex >= 0 ? tc(thindex) : tc();
+        var newtemp = Tp(__SCOLLEVENTTEMP, {
+            bdcolor: theme[0],
+            bgcolor2: theme[0],
+            bgcolor1: theme[2],
+            data: "",
+            starttime: [pZero(sh), pZero(sm)].join(":"),
+            endtime: [pZero(eh), pZero(em)].join(":"),
+            content: title ? title : i18n.xgcalendar.new_event,
+            title: title ? title : i18n.xgcalendar.new_event,
+            icon: "<I class=\"cic cic-tmr\">&nbsp;</I>",
+            top: "0px",
+            left: "",
+            width: w ? w : "100%",
+            height: h - 4,
+            i: "-1",
+            drag: "drag-chip",
+            redisplay: resize ? "block" : "none"
+        });
+        return newtemp;
+    }
+
+    function getdata(chip) {
+        var hddata = chip.find("div.dhdV");
+        if (hddata.length == 1) {
+            var str = hddata.text();
+            return parseED(str.split("$"));
+        }
+        return null;
+    }
+    function parseED(data) {
+        if (data.length > 6) {
+            var e = [];
+            e.push(data[0], data[1], new Date(data[2]), new Date(data[3]), parseInt(data[4],10), parseInt(data[5],10), parseInt(data[6],10), data[7] != undefined ? parseInt(data[7],10) : -1, data[8] != undefined ? parseInt(data[8],10) : 0, data[9], data[10]);
+            return e;
+        }
+        return null;
+
+    }
+    function quickd(type) {
+        $("#bbit-cs-buddle").css("visibility", "hidden");
+        var calid = $("#bbit-cs-id").val();
+        var param = [{ "name": "calendarId", value: calid },
+        { "name": "type", value: type}];
+        var de = rebyKey(calid, true);
+        option.onBeforeRequestData && option.onBeforeRequestData(3);
+        $.post(option.quickDeleteUrl, param, function(data) {
+            if (data) {
+                if (data.IsSuccess) {
+                    de = null;
+                    option.onAfterRequestData && option.onAfterRequestData(3);
+                }
                 else {
-                    if (end >= dr.startdate && end <= dr.enddate) {
-                        r2 = true;
-                    }
-                    if (dateFormat.call(end, "yyyyMMdd") == dateFormat.call(dr.startdate, "yyyyMMdd") || dateFormat.call(end, "yyyyMMdd") == dateFormat.call(dr.enddate, "yyyyMMdd")) {
-                        r2 = true;
-                    }
-                }
-                if (r && r2) {
-                    break;
+                    option.onRequestDataError && option.onRequestDataError(3, data);
+                    Ind(de);
+                    render();
+                    option.onAfterRequestData && option.onAfterRequestData(3);
                 }
             }
-            return r && r2;
-        }
-
-        function buildtempdayevent(sh, sm, eh, em, h, title, w, resize, thindex) {
-            var theme = thindex != undefined && thindex >= 0 ? tc(thindex) : tc();
-            var newtemp = Tp(__SCOLLEVENTTEMP, {
-                bdcolor: theme[0],
-                bgcolor2: theme[0],
-                bgcolor1: theme[2],
-                data: "",
-                starttime: [pZero(sh), pZero(sm)].join(":"),
-                endtime: [pZero(eh), pZero(em)].join(":"),
-                content: title ? title : i18n.xgcalendar.new_event,
-                title: title ? title : i18n.xgcalendar.new_event,
-                icon: "<I class=\"cic cic-tmr\">&nbsp;</I>",
-                top: "0px",
-                left: "",
-                width: w ? w : "100%",
-                height: h - 4,
-                i: "-1",
-                drag: "drag-chip",
-                redisplay: resize ? "block" : "none"
-            });
-            return newtemp;
-        }
-
-        function getdata(chip) {
-            var hddata = chip.find("div.dhdV");
-            if (hddata.length == 1) {
-                var str = hddata.text();
-                return parseED(str.split("$"));
-            }
-            return null;
-        }
-        function parseED(data) {
-            if (data.length > 6) {
-                var e = [];
-                e.push(data[0], data[1], new Date(data[2]), new Date(data[3]), parseInt(data[4],10), parseInt(data[5],10), parseInt(data[6],10), data[7] != undefined ? parseInt(data[7],10) : -1, data[8] != undefined ? parseInt(data[8],10) : 0, data[9], data[10]);
-                return e;
-            }
-            return null;
-
-        }
-        function quickd(type) {
-            $("#bbit-cs-buddle").css("visibility", "hidden");
-            var calid = $("#bbit-cs-id").val();
-            var param = [{ "name": "calendarId", value: calid },
-                        { "name": "type", value: type}];
-            var de = rebyKey(calid, true);
-            option.onBeforeRequestData && option.onBeforeRequestData(3);
-            $.post(option.quickDeleteUrl, param, function(data) {
-                if (data) {
-                    if (data.IsSuccess) {
-                        de = null;
-                        option.onAfterRequestData && option.onAfterRequestData(3);
-                    }
-                    else {
-                        option.onRequestDataError && option.onRequestDataError(3, data);
-                        Ind(de);
-                        render();
-                        option.onAfterRequestData && option.onAfterRequestData(3);
-                    }
-                }
-            }, "json");
-            render();
-        }
-        function getbuddlepos(x, y) {
+        }, "json");
+        render();
+    }
+    function getbuddlepos(x, y) {
             var tleft = x - 110; //先计算如果是显示箭头
             var ttop = y - 217; //如果要箭头
             var maxLeft = document.documentElement.clientWidth;
@@ -1493,9 +1496,9 @@
             if (data != null) {
                 if (option.quickDeleteUrl != "" && data[8] == 1 && option.readonly != true) {
                     var csbuddle = '<div id="bbit-cs-buddle" style="z-index: 990; width: 400px;visibility:hidden;" class="bubble"><table class="bubble-table" cellSpacing="0" cellPadding="0"><tbody><tr><td class="bubble-cell-side"><div id="tl1" class="bubble-corner"><div class="bubble-sprite bubble-tl"></div></div><td class="bubble-cell-main"><div class="bubble-top"></div><td class="bubble-cell-side"><div id="tr1" class="bubble-corner"><div class="bubble-sprite bubble-tr"></div></div>  <tr><td class="bubble-mid" colSpan="3"><div style="overflow: hidden" id="bubbleContent1"><div><div></div><div class="cb-root"><table class="cb-table" cellSpacing="0" cellPadding="0"><tbody><tr><td class="cb-value"><div class="textbox-fill-wrapper"><div class="textbox-fill-mid"><div id="bbit-cs-what" title="'
-                    	+ i18n.xgcalendar.click_to_detail + '" class="textbox-fill-div" style="cursor:pointer;"></div></div></div></td></tr><tr><td class=cb-value><div id="bbit-cs-buddle-timeshow"></div></td></tr></tbody></table><div class="bbit-cs-split"><input id="bbit-cs-id" type="hidden" value=""/>[ <span id="bbit-cs-delete" class="lk">'
-                    	+ i18n.xgcalendar.i_delete + '</span> ]&nbsp; <SPAN id="bbit-cs-editLink" class="lk">'
-                    	+ i18n.xgcalendar.update_detail + ' <StrONG>»</StrONG></SPAN></div></div></div></div><tr><td><div id="bl1" class="bubble-corner"><div class="bubble-sprite bubble-bl"></div></div><td><div class="bubble-bottom"></div><td><div id="br1" class="bubble-corner"><div class="bubble-sprite bubble-br"></div></div></tr></tbody></table><div id="bubbleClose2" class="bubble-closebutton"></div><div id="prong1" class="prong"><div class=bubble-sprite></div></div></div>';
+                    + i18n.xgcalendar.click_to_detail + '" class="textbox-fill-div" style="cursor:pointer;"></div></div></div></td></tr><tr><td class=cb-value><div id="bbit-cs-buddle-timeshow"></div></td></tr></tbody></table><div class="bbit-cs-split"><input id="bbit-cs-id" type="hidden" value=""/>[ <span id="bbit-cs-delete" class="lk">'
+                    + i18n.xgcalendar.i_delete + '</span> ]&nbsp; <SPAN id="bbit-cs-editLink" class="lk">'
+                    + i18n.xgcalendar.update_detail + ' <StrONG>»</StrONG></SPAN></div></div></div></div><tr><td><div id="bl1" class="bubble-corner"><div class="bubble-sprite bubble-bl"></div></div><td><div class="bubble-bottom"></div><td><div id="br1" class="bubble-corner"><div class="bubble-sprite bubble-br"></div></div></tr></tbody></table><div id="bubbleClose2" class="bubble-closebutton"></div><div id="prong1" class="prong"><div class=bubble-sprite></div></div></div>';
                     var bud = $("#bbit-cs-buddle");
                     if (bud.length == 0) {
                         bud = $(csbuddle).appendTo(document.body);
@@ -1540,17 +1543,17 @@
                             // return false;
                         });
                         lbtn.click(function(e) {
-							if (!option.EditCmdhandler) {
-                                alert("EditCmdhandler" + i18n.xgcalendar.i_undefined);
+                         if (!option.EditCmdhandler) {
+                            alert("EditCmdhandler" + i18n.xgcalendar.i_undefined);
+                        }
+                        else {
+                            if (option.EditCmdhandler && $.isFunction(option.EditCmdhandler)) {
+                                option.EditCmdhandler.call(this, $("#bbit-cs-buddle").data("cdata"));
                             }
-                            else {
-                                if (option.EditCmdhandler && $.isFunction(option.EditCmdhandler)) {
-                                    option.EditCmdhandler.call(this, $("#bbit-cs-buddle").data("cdata"));
-                                }
-                            }
-                            $("#bbit-cs-buddle").css("visibility", "hidden");
-                            return false;
-                        });
+                        }
+                        $("#bbit-cs-buddle").css("visibility", "hidden");
+                        return false;
+                    });
                         bud.click(function() { return false });
                     }
                     var pos = getbuddlepos(e.pageX, e.pageY);
@@ -1599,26 +1602,26 @@
             }
             return false;
         }
-		function eidtdayshow(e, data) {
-						var csbuddle1 = '<div id="bbit-cs-buddle1" style="z-index: 990; width: 400px;visibility:hidden;" class="bubble"><table class="bubble-table" cellSpacing="0" cellPadding="0"><tbody><tr><td class="bubble-cell-side"><div id="tl11" class="bubble-corner"><div class="bubble-sprite bubble-tl"></div></div><td class="bubble-cell-main"><div class="bubble-top"></div><td class="bubble-cell-side"><div id="tr11" class="bubble-corner"><div class="bubble-sprite bubble-tr"></div></div>  <tr><td class="bubble-mid" colSpan="3"><div style="overflow: hidden" id="bubbleContent11"><div><div></div><div class="cb-root"><table class="cb-table" cellSpacing="0" cellPadding="0"><tbody><tr><td class="cb-value"><div class="textbox-fill-wrapper"><div class="textbox-fill-mid"><div id="bbit-cs-what1" title="'
-                    	+ i18n.xgcalendar.click_to_detail + '" class="textbox-fill-div lk" style="cursor:pointer;"></div></div></div></td></tr><tr><td class=cb-value><div id="bbit-cs-buddle-timeshow1"></div></td></tr></tbody></table><div class="bbit-cs-split"><input id="bbit-cs-id1" type="hidden" value=""/>[ <span id="bbit-cs-delete1" class="lk">'
-                    	+ i18n.xgcalendar.save + '</span> ]&nbsp; <SPAN id="bbit-cs-editLink1" class="lk">'
-                    	+ i18n.xgcalendar.cancel + ' <StrONG>»</StrONG></SPAN></div></div></div></div><tr><td><div id="bl1" class="bubble-corner"><div class="bubble-sprite bubble-bl1"></div></div><td><div class="bubble-bottom"></div><td><div id="br11" class="bubble-corner"><div class="bubble-sprite bubble-br"></div></div></tr></tbody></table><div id="bubbleClose21" class="bubble-closebutton"></div><div id="prong11" class="prong"><div class=bubble-sprite></div></div></div>';
-                    var bud = $("#bbit-cs-buddle1");
-                    if (bud.length == 1) {
-                        bud = $(csbuddle1).appendTo(document.body);
-                        var calbutton = $("#bbit-cs-delete1");
-                        var lbtn = $("#bbit-cs-editLink1");
-                        var closebtn = $("#bubbleClose21").click(function() {
-                            $("#bbit-cs-buddle1").css("visibility", "hidden");
-                        });
-                        calbutton.click(function() {
-                            var data = $("#bbit-cs-buddle1").data("cdata");
-                            if (option.DeleteCmdhandler && $.isFunction(option.DeleteCmdhandler)) {
-                                option.DeleteCmdhandler.call(this, data, quickd);
-                            }
-                            else {
-                                if (confirm(i18n.xgcalendar.confirm_delete_event + "?")) {
+        function eidtdayshow(e, data) {
+          var csbuddle1 = '<div id="bbit-cs-buddle1" style="z-index: 990; width: 400px;visibility:hidden;" class="bubble"><table class="bubble-table" cellSpacing="0" cellPadding="0"><tbody><tr><td class="bubble-cell-side"><div id="tl11" class="bubble-corner"><div class="bubble-sprite bubble-tl"></div></div><td class="bubble-cell-main"><div class="bubble-top"></div><td class="bubble-cell-side"><div id="tr11" class="bubble-corner"><div class="bubble-sprite bubble-tr"></div></div>  <tr><td class="bubble-mid" colSpan="3"><div style="overflow: hidden" id="bubbleContent11"><div><div></div><div class="cb-root"><table class="cb-table" cellSpacing="0" cellPadding="0"><tbody><tr><td class="cb-value"><div class="textbox-fill-wrapper"><div class="textbox-fill-mid"><div id="bbit-cs-what1" title="'
+          + i18n.xgcalendar.click_to_detail + '" class="textbox-fill-div lk" style="cursor:pointer;"></div></div></div></td></tr><tr><td class=cb-value><div id="bbit-cs-buddle-timeshow1"></div></td></tr></tbody></table><div class="bbit-cs-split"><input id="bbit-cs-id1" type="hidden" value=""/>[ <span id="bbit-cs-delete1" class="lk">'
+          + i18n.xgcalendar.save + '</span> ]&nbsp; <SPAN id="bbit-cs-editLink1" class="lk">'
+          + i18n.xgcalendar.cancel + ' <StrONG>»</StrONG></SPAN></div></div></div></div><tr><td><div id="bl1" class="bubble-corner"><div class="bubble-sprite bubble-bl1"></div></div><td><div class="bubble-bottom"></div><td><div id="br11" class="bubble-corner"><div class="bubble-sprite bubble-br"></div></div></tr></tbody></table><div id="bubbleClose21" class="bubble-closebutton"></div><div id="prong11" class="prong"><div class=bubble-sprite></div></div></div>';
+          var bud = $("#bbit-cs-buddle1");
+          if (bud.length == 1) {
+            bud = $(csbuddle1).appendTo(document.body);
+            var calbutton = $("#bbit-cs-delete1");
+            var lbtn = $("#bbit-cs-editLink1");
+            var closebtn = $("#bubbleClose21").click(function() {
+                $("#bbit-cs-buddle1").css("visibility", "hidden");
+            });
+            calbutton.click(function() {
+                var data = $("#bbit-cs-buddle1").data("cdata");
+                if (option.DeleteCmdhandler && $.isFunction(option.DeleteCmdhandler)) {
+                    option.DeleteCmdhandler.call(this, data, quickd);
+                }
+                else {
+                    if (confirm(i18n.xgcalendar.confirm_delete_event + "?")) {
                                     var s = 0; //0 单个事件 1，序列
                                     if (data[6] == 1) {
                                         if (confirm(i18n.xgcalendar.confrim_delete_event_or_all)) {
@@ -1635,65 +1638,65 @@
                                 }
                             }
                         });
-                        $("#bbit-cs-what1").click(function(e) {
-                      
-                        });
-                        lbtn.click(function(e) {
-							eidtdayshow(this,$("#bbit-cs-buddle1").data("cdata"));
-                        });
-                        bud.click(function() { return false });
-                    }
-                    var pos = getbuddlepos(e.pageX, e.pageY);
-                    if (pos.hide) {
-                        $("#prong11").hide()
-                    }
-                    else {
-                        $("#prong11").show()
-                    }
-                    var ss = [];
-                    var iscos = DateDiff("d", data[2], data[3]) != 0;
-                    ss.push(dateFormat.call(data[2], i18n.xgcalendar.dateformat.Md3), " (", __WDAY[data[2].getDay()], ")");
-                    if (data[4] != 1) {
-                        ss.push(",", dateFormat.call(data[2],option.timeFormat));
-                    }
+            $("#bbit-cs-what1").click(function(e) {
 
-                    if (iscos) {
-                        ss.push(" - ", dateFormat.call(data[3], i18n.xgcalendar.dateformat.Md3), " (", __WDAY[data[3].getDay()], ")");
-                        if (data[4] != 1) {
-                            ss.push(",", dateFormat.call(data[3], option.timeFormat));
-                        }
-                    }
-                    var ts = $("#bbit-cs-buddle-timeshow1").html(ss.join(""));
-                    $("#bbit-cs-what1").html(data[1]);
-                    $("#bbit-cs-id1").val(data[0]);
-                    bud.data("cdata", data);
-                    bud.css({ "visibility": "visible", left: pos.left, top: pos.top });
-
-                    $(document).one("click", function() {
-                        $("#bbit-cs-buddle").css("visibility", "hidden");
-                    });
+            });
+            lbtn.click(function(e) {
+             eidtdayshow(this,$("#bbit-cs-buddle1").data("cdata"));
+         });
+            bud.click(function() { return false });
         }
-        function moreshow(mv) {
-            var me = $(this);
-            var divIndex = mv.id.split('_')[1];
-            var pdiv = $(mv);
-            var offsetMe = me.position();
-            var offsetP = pdiv.position();
-            var width = (me.width() + 2) * 1.5;
-            var top = offsetP.top + 15;
-            var left = offsetMe.left;
+        var pos = getbuddlepos(e.pageX, e.pageY);
+        if (pos.hide) {
+            $("#prong11").hide()
+        }
+        else {
+            $("#prong11").show()
+        }
+        var ss = [];
+        var iscos = DateDiff("d", data[2], data[3]) != 0;
+        ss.push(dateFormat.call(data[2], i18n.xgcalendar.dateformat.Md3), " (", __WDAY[data[2].getDay()], ")");
+        if (data[4] != 1) {
+            ss.push(",", dateFormat.call(data[2],option.timeFormat));
+        }
 
-            var daystr = this.abbr;
+        if (iscos) {
+            ss.push(" - ", dateFormat.call(data[3], i18n.xgcalendar.dateformat.Md3), " (", __WDAY[data[3].getDay()], ")");
+            if (data[4] != 1) {
+                ss.push(",", dateFormat.call(data[3], option.timeFormat));
+            }
+        }
+        var ts = $("#bbit-cs-buddle-timeshow1").html(ss.join(""));
+        $("#bbit-cs-what1").html(data[1]);
+        $("#bbit-cs-id1").val(data[0]);
+        bud.data("cdata", data);
+        bud.css({ "visibility": "visible", left: pos.left, top: pos.top });
 
-            var format =i18n.xgcalendar.dateformat;
-            var arrdays = daystr.split(format.separator);
+        $(document).one("click", function() {
+            $("#bbit-cs-buddle").css("visibility", "hidden");
+        });
+    }
+    function moreshow(mv) {
+        var me = $(this);
+        var divIndex = mv.id.split('_')[1];
+        var pdiv = $(mv);
+        var offsetMe = me.position();
+        var offsetP = pdiv.position();
+        var width = (me.width() + 2) * 1.5;
+        var top = offsetP.top + 15;
+        var left = offsetMe.left;
 
-            var day = new Date(arrdays[format.year_index], parseInt(arrdays[format.month_index] - 1,10), arrdays[format.day_index]);
-            var cc = $("#cal-month-cc");
-            var ccontent = $("#cal-month-cc-content table tbody");
-            var ctitle = $("#cal-month-cc-title");
-            ctitle.html(dateFormat.call(day,format.Md3) + " " + __WDAY[day.getDay()]);
-            ccontent.empty();
+        var daystr = this.abbr;
+
+        var format =i18n.xgcalendar.dateformat;
+        var arrdays = daystr.split(format.separator);
+
+        var day = new Date(arrdays[format.year_index], parseInt(arrdays[format.month_index] - 1,10), arrdays[format.day_index]);
+        var cc = $("#cal-month-cc");
+        var ccontent = $("#cal-month-cc-content table tbody");
+        var ctitle = $("#cal-month-cc-title");
+        ctitle.html(dateFormat.call(day,format.Md3) + " " + __WDAY[day.getDay()]);
+        ccontent.empty();
             //var c = tc()[2];
             var edata = $("#gridEvent").data("mvdata");
             var events = edata[divIndex];
@@ -1729,10 +1732,10 @@
             if (top + height >= maxtop) {
                 top = maxtop - height - 10;
             }
-			if(left ==0)
-			{
-				left =10;
-			}
+            if(left ==0)
+            {
+                left =10;
+            }
             var newOff = { left: left, top: top, "z-index": 990, width: width, "display": "block" };
             cc.css(newOff);
             $(document).one("click", closeCc);
@@ -1749,10 +1752,10 @@
                 var od = data[3];
                 var zone = new Date().getTimezoneOffset() / 60 * -1;
                 var param = [{ "name": "calendarId", value: id },
-							{ "name": "CalendarStartTime", value: dateFormat.call(start, i18n.xgcalendar.dateformat.fulldayvalue + " HH:mm") },
-							{ "name": "CalendarEndTime", value: dateFormat.call(end, i18n.xgcalendar.dateformat.fulldayvalue + " HH:mm") },
-							{ "name": "timezone", value: zone }
-						   ];
+                { "name": "CalendarStartTime", value: dateFormat.call(start, i18n.xgcalendar.dateformat.fulldayvalue + " HH:mm") },
+                { "name": "CalendarEndTime", value: dateFormat.call(end, i18n.xgcalendar.dateformat.fulldayvalue + " HH:mm") },
+                { "name": "timezone", value: zone }
+                ];
                 var d;
                 if (option.quickUpdateHandler && $.isFunction(option.quickUpdateHandler)) {
                     option.quickUpdateHandler.call(this, param);
@@ -1797,19 +1800,28 @@
             var buddle = $("#bbit-cal-buddle");
             if (buddle.length == 0) {
                 var temparr = [];
+                var categoryHtml = '<form id="categoryForm"> 计划 <input type="radio" name="planOrFinish" id="radioPlan" value = "0">   完成  <input type="radio" name="planOrFinish" id="radioPlan" value = "1"> </form>';
                 temparr.push('<div id="bbit-cal-buddle" style="z-index: 990; width: 400px;visibility:hidden;" class="bubble">');
                 temparr.push('<table class="bubble-table" cellSpacing="0" cellPadding="0"><tbody><tr><td class="bubble-cell-side"><div id="tl1" class="bubble-corner"><div class="bubble-sprite bubble-tl"></div></div>');
                 temparr.push('<td class="bubble-cell-main"><div class="bubble-top"></div><td class="bubble-cell-side"><div id="tr1" class="bubble-corner"><div class="bubble-sprite bubble-tr"></div></div>  <tr><td class="bubble-mid" colSpan="3"><div style="overflow: hidden" id="bubbleContent1"><div><div></div><div class="cb-root">');
                 temparr.push('<table class="cb-table" cellSpacing="0" cellPadding="0"><tbody><tr><th class="cb-key">');
                 temparr.push(i18n.xgcalendar.time, ':</th><td class=cb-value><div id="bbit-cal-buddle-timeshow"></div></td></tr><tr><th class="cb-key">');
                 temparr.push(i18n.xgcalendar.content, ':</th><td class="cb-value"><div class="textbox-fill-wrapper"><div class="textbox-fill-mid"><input id="bbit-cal-what" class="textbox-fill-input"/></div></div><div class="cb-example">');
-                temparr.push(i18n.xgcalendar.example, '</div></td></tr></tbody></table><input id="bbit-cal-start" type="hidden"/><input id="bbit-cal-end" type="hidden"/><input id="bbit-cal-allday" type="hidden"/><input id="bbit-cal-quickAddBTN" value="');
+                // temparr.push(i18n.xgcalendar.example, '</div></td></tr></tbody></table><input id="bbit-cal-start" type="hidden"/><input id="bbit-cal-end" type="hidden"/><input id="bbit-cal-allday" type="hidden"/><input id="bbit-cal-quickAddBTN" value="');
+                temparr.push(categoryHtml, '</div></td></tr></tbody></table><input id="bbit-cal-start" type="hidden"/><input id="bbit-cal-end" type="hidden"/><input id="bbit-cal-allday" type="hidden"/><input id="bbit-cal-quickAddBTN" value="');
                 temparr.push(i18n.xgcalendar.create_event, '" type="button"/>&nbsp; <SPAN id="bbit-cal-editLink" class="lk">');
                 temparr.push(i18n.xgcalendar.update_detail, ' <StrONG>»</StrONG></SPAN></div></div></div><tr><td><div id="bl1" class="bubble-corner"><div class="bubble-sprite bubble-bl"></div></div><td><div class="bubble-bottom"></div><td><div id="br1" class="bubble-corner"><div class="bubble-sprite bubble-br"></div></div></tr></tbody></table><div id="bubbleClose1" class="bubble-closebutton"></div><div id="prong2" class="prong"><div class=bubble-sprite></div></div></div>');
                 var tempquickAddHanler = temparr.join("");
-                console.log(i18n.xgcalendar.example);
+                // console.log(i18n.xgcalendar.example);
                 temparr = null;
                 $(document.body).append(tempquickAddHanler);
+                var dateTime = new Date();
+                if (dateTime.getHours() >= 17 && dateTime.getMinutes() >= 30){
+                    $("input[name=planOrFinish]:eq(1)").attr("checked","checked");
+                }else{
+                    $("input[name=planOrFinish]:eq(0)").attr("checked","checked");
+                }
+
                 buddle = $("#bbit-cal-buddle");
                 var calbutton = $("#bbit-cal-quickAddBTN");
                 var lbtn = $("#bbit-cal-editLink");
@@ -1817,6 +1829,8 @@
                     $("#bbit-cal-buddle").css("visibility", "hidden");
                     realsedragevent();
                 });
+
+
                 calbutton.click(function(e) {
                     if (option.isloading) {
                         return false;
@@ -1826,6 +1840,7 @@
                     var datestart = $("#bbit-cal-start").val();
                     var dateend = $("#bbit-cal-end").val();
                     var allday = $("#bbit-cal-allday").val();
+                    var categoryValue = parseInt($("input[name=planOrFinish]:checked").val());                    
                     var f = /^[^\$\<\>]+$/.test(what);
                     if (!f) {
                         alert(i18n.xgcalendar.invalid_title);
@@ -1835,10 +1850,11 @@
                     }
                     var zone = new Date().getTimezoneOffset() / 60 * -1;
                     var param = [{ "name": "CalendarTitle", value: what },
-						{ "name": "CalendarStartTime", value: datestart },
-						{ "name": "CalendarEndTime", value: dateend },
-						{ "name": "IsAllDayEvent", value: allday },
-						{ "name": "timezone", value: zone}];
+                    { "name": "CalendarStartTime", value: datestart },
+                    { "name": "CalendarEndTime", value: dateend },
+                    { "name": "IsAllDayEvent", value: allday },
+                    { "name": "timezone", value: zone},
+                    { "name": "Category", value:categoryValue}];
 
                     if (option.extParam) {
                         for (var pi = 0; pi < option.extParam.length; pi++) {
@@ -1847,11 +1863,13 @@
                     }
 
                     if (option.quickAddHandler && $.isFunction(option.quickAddHandler)) {
+                        console.log(1);
                         option.quickAddHandler.call(this, param);
                         $("#bbit-cal-buddle").css("visibility", "hidden");
                         realsedragevent();
                     }
                     else {
+                        console.log(2);
                         $("#bbit-cal-buddle").css("visibility", "hidden");
                         var newdata = [];
                         var tId = -1;
@@ -1881,7 +1899,7 @@
                         var ed = strtodate(dateend);
                         var diff = DateDiff("d", sd, ed);
                         newdata.push(sd, ed, allday == "1" ? 1 : 0, diff > 0 ? 1 : 0, 0);
-                        newdata.push(-1, 0, "", ""); //主题,权限,参与人，
+                        newdata.push(categoryValue, 0, "", ""); //主题,权限,参与人，
 
                         tId = Ind(newdata);
                         realsedragevent();
@@ -1980,37 +1998,37 @@
                     else if (d2 < 0) {
                         i = sl;
                     }
-					else if(d1==d2)
-					{
-						i=sl;
-					}
-                    else {
-                        for (var j = sl - 1; j >= 0; j--) {
-                            if (option.eventItems[j][2] < s) {
-                                i = j + 1;
-                                break;
-                            }
+                    else if(d1==d2)
+                    {
+                      i=sl;
+                  }
+                  else {
+                    for (var j = sl - 1; j >= 0; j--) {
+                        if (option.eventItems[j][2] < s) {
+                            i = j + 1;
+                            break;
                         }
                     }
                 }
-                else {
-                    i = 0;
-                }
             }
             else {
-                d = 1;
+                i = 0;
             }
-            if (option.eventItems && option.eventItems.length > 0) {
-                if (i == option.eventItems.length) {
-                    option.eventItems.push(event);
-                }
-                else { option.eventItems.splice(i, d, event); }
-            }
-            else {
-                option.eventItems = [event];
-            }
-            return i;
         }
+        else {
+            d = 1;
+        }
+        if (option.eventItems && option.eventItems.length > 0) {
+            if (i == option.eventItems.length) {
+                option.eventItems.push(event);
+            }
+            else { option.eventItems.splice(i, d, event); }
+        }
+        else {
+            option.eventItems = [event];
+        }
+        return i;
+    }
         //endregion 工具函数结束 }
         function ResizeView() {
             var _MH = document.documentElement.clientHeight;
@@ -2046,7 +2064,7 @@
 			/*
             else if (_viewType == "month") {
             }
-			*/
+            */
         }
         function returnfalse() {
             return false;
@@ -2115,38 +2133,38 @@
                 if (option.readonly == false) {
                     $("#mvEventContainer").mousedown(function(e) { dragStart.call(this, "m1", e); return false; });
                 }
-				else
-				{
-					 $("#mvEventContainer span.monthdayshow").each(function(e){
-						$(this).click(function(e2){    weekormonthtoday.call($(this).parent()[0], e2); });
-					 });
-				}
-            }
+                else
+                {
+                  $("#mvEventContainer span.monthdayshow").each(function(e){
+                      $(this).click(function(e2){    weekormonthtoday.call($(this).parent()[0], e2); });
+                  });
+              }
+          }
 
+      }
+      function realsedragevent() {
+        if (_dragevent) {
+            _dragevent();
+            _dragevent = null;
         }
-        function realsedragevent() {
-            if (_dragevent) {
-                _dragevent();
-                _dragevent = null;
-            }
-        }
-        function dragStart(type, e) {
-            var obj = $(this);
-            var source = e.srcElement || e.target;
-            realsedragevent();
-            switch (type) {
+    }
+    function dragStart(type, e) {
+        var obj = $(this);
+        var source = e.srcElement || e.target;
+        realsedragevent();
+        switch (type) {
                 case "dw1": //周日视图的	快速新增事件 单日
-                    _dragdata = { type: 1, target: obj, sx: e.pageX, sy: e.pageY };
-                    break;
+                _dragdata = { type: 1, target: obj, sx: e.pageX, sy: e.pageY };
+                break;
                 case "dw2": //周日视图的快速新增事件 全天跨天
-                    var w = obj.width();
-                    var h = obj.height();
-                    var offset = obj.offset();
-                    var left = offset.left;
-                    var top = offset.top;
-                    var l = option.view == "day" ? 1 : 7;
-                    var py = w % l;
-                    var pw = parseInt(w / l,10);
+                var w = obj.width();
+                var h = obj.height();
+                var offset = obj.offset();
+                var left = offset.left;
+                var top = offset.top;
+                var l = option.view == "day" ? 1 : 7;
+                var py = w % l;
+                var pw = parseInt(w / l,10);
                     //每个单元格的宽度
                     if (py > l / 2 + 1) {
                         pw++;
@@ -2161,33 +2179,33 @@
                     w = left = l = py = pw = xa = null;
                     break;
                 case "dw3": //周日视图的拖拽和查看事件 单日
-                    var evid = obj.parent().attr("id").replace("tgCol", "");
-                    var p = obj.parent();
-                    var pos = p.offset();
-                    var w = p.width() + 10;
-                    var h = obj.height();
-                    var data = getdata(obj);
-                    _dragdata = { type: 4, target: obj, sx: e.pageX, sy: e.pageY,
-                        pXMin: pos.left, pXMax: pos.left + w, pw: w, h: h,
-                        cdi: parseInt(evid,10), fdi: parseInt(evid,10), data: data
-                    };
-                    break;
+                var evid = obj.parent().attr("id").replace("tgCol", "");
+                var p = obj.parent();
+                var pos = p.offset();
+                var w = p.width() + 10;
+                var h = obj.height();
+                var data = getdata(obj);
+                _dragdata = { type: 4, target: obj, sx: e.pageX, sy: e.pageY,
+                    pXMin: pos.left, pXMax: pos.left + w, pw: w, h: h,
+                    cdi: parseInt(evid,10), fdi: parseInt(evid,10), data: data
+                };
+                break;
                 case "dw4": //resize;
-                    var h = obj.height();
-                    var data = getdata(obj);
-                    _dragdata = { type: 5, target: obj, sx: e.pageX, sy: e.pageY, h: h, data: data };
-                    break;
+                var h = obj.height();
+                var data = getdata(obj);
+                _dragdata = { type: 5, target: obj, sx: e.pageX, sy: e.pageY, h: h, data: data };
+                break;
                 case "dw5":
-                    var con = $("#weekViewAllDaywk");
-                    var w = con.width();
-                    var h = con.height();
-                    var offset = con.offset();
-                    var moffset = obj.offset();
-                    var left = offset.left;
-                    var top = offset.top;
-                    var l = 7;
-                    var py = w % l;
-                    var pw = parseInt(w / l);
+                var con = $("#weekViewAllDaywk");
+                var w = con.width();
+                var h = con.height();
+                var offset = con.offset();
+                var moffset = obj.offset();
+                var left = offset.left;
+                var top = offset.top;
+                var l = 7;
+                var py = w % l;
+                var pw = parseInt(w / l);
                     //每个单元格的宽度
                     if (py > l / 2 + 1) {
                         pw++;
@@ -2208,14 +2226,14 @@
                     _dragdata = { type: 6, target: obj, sx: e.pageX, sy: e.pageY, data: data, xa: xa, ya: ya, fdi: fdi, h: h, dp: dp, pw: pw };
                     break;
                 case "m1": //月视图的快速新增事件
-                    var w = obj.width();
-                    var offset = obj.offset();
-                    var left = offset.left;
-                    var top = offset.top;
-                    var l = 7;
-                    var yl = obj.children().length;
-                    var py = w % l;
-                    var pw = parseInt(w / l);
+                var w = obj.width();
+                var offset = obj.offset();
+                var left = offset.left;
+                var top = offset.top;
+                var l = 7;
+                var yl = obj.children().length;
+                var py = w % l;
+                var pw = parseInt(w / l);
                     //每个单元格的宽度
                     if (py > l / 2 + 1) {
                         pw++;
@@ -2238,19 +2256,19 @@
                     _dragdata = { type: 3, target: obj, sx: e.pageX, sy: e.pageY, pw: pw, xa: xa, ya: ya, h: h };
                     break;
                 case "m2": //月视图日程拖动处理
-                    var row0 = $("#mvrow_0");
-                    var row1 = $("#mvrow_1");
-                    var w = row0.width();
-                    var offset = row0.offset();
-                    var diffset = row1.offset();
-                    var moffset = obj.offset();
-                    var h = diffset.top - offset.top;
-                    var left = offset.left;
-                    var top = offset.top;
-                    var l = 7;
-                    var yl = row0.parent().children().length;
-                    var py = w % l;
-                    var pw = parseInt(w / l);
+                var row0 = $("#mvrow_0");
+                var row1 = $("#mvrow_1");
+                var w = row0.width();
+                var offset = row0.offset();
+                var diffset = row1.offset();
+                var moffset = obj.offset();
+                var h = diffset.top - offset.top;
+                var left = offset.left;
+                var top = offset.top;
+                var l = 7;
+                var yl = row0.parent().children().length;
+                var py = w % l;
+                var pw = parseInt(w / l);
                     //每个单元格的宽度
                     if (py > l / 2 + 1) {
                         pw++;
@@ -2276,150 +2294,150 @@
                     var dp = DateDiff("d", data[2], data[3]) + 1;
                     _dragdata = { type: 7, target: obj, sx: e.pageX, sy: e.pageY, data: data, xa: xa, ya: ya, fdi: fdi, h: h, dp: dp, pw: pw };
                     break;
-            }
+                }
             //$('body').noSelect();
         }
         function dragMove(e) {
             if (_dragdata) {
                 if (e.pageX < 0 || e.pageY < 0
-					|| e.pageX > document.documentElement.clientWidth
-					|| e.pageY >= document.documentElement.clientHeight) {
+                   || e.pageX > document.documentElement.clientWidth
+                   || e.pageY >= document.documentElement.clientHeight) {
                     dragEnd(e);
-                    return false;
+                return false;
+            }
+            var d = _dragdata;
+            switch (d.type) {
+                case 1:
+                var sy = d.sy;
+                var y = e.pageY;
+                var diffy = y - sy;
+                if (diffy > 11 || diffy < -11 || d.cpwrap) {
+                    if (diffy == 0) { diffy = 21; }
+                    var dy = diffy % 21;
+                    if (dy != 0) {
+                        diffy = dy > 0 ? diffy + 21 - dy : diffy - 21 - dy;
+                        y = d.sy + diffy;
+                        if (diffy < 0) {
+                            sy = sy + 21;
+                        }
+                    }
+                    if (!d.tp) {
+                        d.tp = $(d.target).offset().top;
+                    }
+                    var gh = gH(sy, y, d.tp);
+                    var ny = gP(gh.sh, gh.sm);
+                    var tempdata;
+                    if (!d.cpwrap) {
+                        tempdata = buildtempdayevent(gh.sh, gh.sm, gh.eh, gh.em, gh.h);
+                        var cpwrap = $("<div class='ca-evpi drag-chip-wrapper' style='top:" + ny + "px'/>").html(tempdata);
+                        $(d.target).find("div.tg-col-overlaywrapper").append(cpwrap);
+                        d.cpwrap = cpwrap;
+                    }
+                    else {
+                        if (d.cgh.sh != gh.sh || d.cgh.eh != gh.eh || d.cgh.sm != gh.sm || d.cgh.em != gh.em) {
+                            tempdata = buildtempdayevent(gh.sh, gh.sm, gh.eh, gh.em, gh.h);
+                            d.cpwrap.css("top", ny + "px").html(tempdata);
+                        }
+                    }
+                    d.cgh = gh;
                 }
-                var d = _dragdata;
-                switch (d.type) {
-                    case 1:
-                        var sy = d.sy;
-                        var y = e.pageY;
-                        var diffy = y - sy;
-                        if (diffy > 11 || diffy < -11 || d.cpwrap) {
-                            if (diffy == 0) { diffy = 21; }
-                            var dy = diffy % 21;
-                            if (dy != 0) {
-                                diffy = dy > 0 ? diffy + 21 - dy : diffy - 21 - dy;
-                                y = d.sy + diffy;
-                                if (diffy < 0) {
-                                    sy = sy + 21;
-                                }
-                            }
-                            if (!d.tp) {
-                                d.tp = $(d.target).offset().top;
-                            }
-                            var gh = gH(sy, y, d.tp);
-                            var ny = gP(gh.sh, gh.sm);
-                            var tempdata;
-                            if (!d.cpwrap) {
-                                tempdata = buildtempdayevent(gh.sh, gh.sm, gh.eh, gh.em, gh.h);
-                                var cpwrap = $("<div class='ca-evpi drag-chip-wrapper' style='top:" + ny + "px'/>").html(tempdata);
-                                $(d.target).find("div.tg-col-overlaywrapper").append(cpwrap);
-                                d.cpwrap = cpwrap;
-                            }
-                            else {
-                                if (d.cgh.sh != gh.sh || d.cgh.eh != gh.eh || d.cgh.sm != gh.sm || d.cgh.em != gh.em) {
-                                    tempdata = buildtempdayevent(gh.sh, gh.sm, gh.eh, gh.em, gh.h);
-                                    d.cpwrap.css("top", ny + "px").html(tempdata);
-                                }
-                            }
-                            d.cgh = gh;
+                break;
+                case 2:
+                var sx = d.sx;
+                var x = e.pageX;
+                var diffx = x - sx;
+                if (diffx > 5 || diffx < -5 || d.lasso) {
+                    if (!d.lasso) {
+                        d.lasso = $("<div style='z-index: 10; display: block' class='drag-lasso-container'/>");
+                        $(document.body).append(d.lasso);
+                    }
+                    if (!d.sdi) {
+                        d.sdi = getdi(d.xa, d.ya, sx, d.sy);
+                    }
+                    var ndi = getdi(d.xa, d.ya, x, e.pageY);
+                    if (!d.fdi || d.fdi.di != ndi.di) {
+                        addlasso(d.lasso, d.sdi, ndi, d.xa, d.ya, d.h);
+                    }
+                    d.fdi = ndi;
+                }
+                break;
+                case 3:
+                var sx = d.sx;
+                var x = e.pageX;
+                var sy = d.sy;
+                var y = e.pageY;
+                var diffx = x - sx;
+                var diffy = y - sy;
+                if (diffx > 5 || diffx < -5 || diffy < -5 || diffy > 5 || d.lasso) {
+                    if (!d.lasso) {
+                        d.lasso = $("<div style='z-index: 10; display: block' class='drag-lasso-container'/>");
+                        $(document.body).append(d.lasso);
+                    }
+                    if (!d.sdi) {
+                        d.sdi = getdi(d.xa, d.ya, sx, sy);
+                    }
+                    var ndi = getdi(d.xa, d.ya, x, y);
+                    if (!d.fdi || d.fdi.di != ndi.di) {
+                        addlasso(d.lasso, d.sdi, ndi, d.xa, d.ya, d.h);
+                    }
+                    d.fdi = ndi;
+                }
+                break;
+                case 4:
+                var data = d.data;
+                if (data != null && data[8] == 1) {
+                    var sx = d.sx;
+                    var x = e.pageX;
+                    var sy = d.sy;
+                    var y = e.pageY;
+                    var diffx = x - sx;
+                    var diffy = y - sy;
+                    if (diffx > 5 || diffx < -5 || diffy > 5 || diffy < -5 || d.cpwrap) {
+                        var gh, ny, tempdata;
+                        if (!d.cpwrap) {
+                            gh = { sh: data[2].getHours(),
+                                sm: data[2].getMinutes(),
+                                eh: data[3].getHours(),
+                                em: data[3].getMinutes(),
+                                h: d.h
+                            };
+                            d.target.hide();
+                            ny = gP(gh.sh, gh.sm);
+                            d.top = ny;
+                            tempdata = buildtempdayevent(gh.sh, gh.sm, gh.eh, gh.em, gh.h, data[1], false, false, data[7]);
+                            var cpwrap = $("<div class='ca-evpi drag-chip-wrapper' style='top:" + ny + "px'/>").html(tempdata);
+                            var evid = d.target.parent().attr("id").replace("tgCol", "#tgOver");
+                            $(evid).append(cpwrap);
+                            d.cpwrap = cpwrap;
+                            d.ny = ny;
                         }
-                        break;
-                    case 2:
-                        var sx = d.sx;
-                        var x = e.pageX;
-                        var diffx = x - sx;
-                        if (diffx > 5 || diffx < -5 || d.lasso) {
-                            if (!d.lasso) {
-                                d.lasso = $("<div style='z-index: 10; display: block' class='drag-lasso-container'/>");
-                                $(document.body).append(d.lasso);
+                        else {
+                            var pd = 0;
+                            if (x < d.pXMin) {
+                                pd = -1;
                             }
-                            if (!d.sdi) {
-                                d.sdi = getdi(d.xa, d.ya, sx, d.sy);
+                            else if (x > d.pXMax) {
+                                pd = 1;
                             }
-                            var ndi = getdi(d.xa, d.ya, x, e.pageY);
-                            if (!d.fdi || d.fdi.di != ndi.di) {
-                                addlasso(d.lasso, d.sdi, ndi, d.xa, d.ya, d.h);
-                            }
-                            d.fdi = ndi;
-                        }
-                        break;
-                    case 3:
-                        var sx = d.sx;
-                        var x = e.pageX;
-                        var sy = d.sy;
-                        var y = e.pageY;
-                        var diffx = x - sx;
-                        var diffy = y - sy;
-                        if (diffx > 5 || diffx < -5 || diffy < -5 || diffy > 5 || d.lasso) {
-                            if (!d.lasso) {
-                                d.lasso = $("<div style='z-index: 10; display: block' class='drag-lasso-container'/>");
-                                $(document.body).append(d.lasso);
-                            }
-                            if (!d.sdi) {
-                                d.sdi = getdi(d.xa, d.ya, sx, sy);
-                            }
-                            var ndi = getdi(d.xa, d.ya, x, y);
-                            if (!d.fdi || d.fdi.di != ndi.di) {
-                                addlasso(d.lasso, d.sdi, ndi, d.xa, d.ya, d.h);
-                            }
-                            d.fdi = ndi;
-                        }
-                        break;
-                    case 4:
-                        var data = d.data;
-                        if (data != null && data[8] == 1) {
-                            var sx = d.sx;
-                            var x = e.pageX;
-                            var sy = d.sy;
-                            var y = e.pageY;
-                            var diffx = x - sx;
-                            var diffy = y - sy;
-                            if (diffx > 5 || diffx < -5 || diffy > 5 || diffy < -5 || d.cpwrap) {
-                                var gh, ny, tempdata;
-                                if (!d.cpwrap) {
-                                    gh = { sh: data[2].getHours(),
-                                        sm: data[2].getMinutes(),
-                                        eh: data[3].getHours(),
-                                        em: data[3].getMinutes(),
-                                        h: d.h
-                                    };
-                                    d.target.hide();
-                                    ny = gP(gh.sh, gh.sm);
-                                    d.top = ny;
-                                    tempdata = buildtempdayevent(gh.sh, gh.sm, gh.eh, gh.em, gh.h, data[1], false, false, data[7]);
-                                    var cpwrap = $("<div class='ca-evpi drag-chip-wrapper' style='top:" + ny + "px'/>").html(tempdata);
-                                    var evid = d.target.parent().attr("id").replace("tgCol", "#tgOver");
-                                    $(evid).append(cpwrap);
-                                    d.cpwrap = cpwrap;
-                                    d.ny = ny;
+                            if (pd != 0) {
+
+                                d.cdi = d.cdi + pd;
+                                var ov = $("#tgOver" + d.cdi);
+                                if (ov.length == 1) {
+                                    d.pXMin = d.pXMin + d.pw * pd;
+                                    d.pXMax = d.pXMax + d.pw * pd;
+                                    ov.append(d.cpwrap);
                                 }
                                 else {
-                                    var pd = 0;
-                                    if (x < d.pXMin) {
-                                        pd = -1;
-                                    }
-                                    else if (x > d.pXMax) {
-                                        pd = 1;
-                                    }
-                                    if (pd != 0) {
-
-                                        d.cdi = d.cdi + pd;
-                                        var ov = $("#tgOver" + d.cdi);
-                                        if (ov.length == 1) {
-                                            d.pXMin = d.pXMin + d.pw * pd;
-                                            d.pXMax = d.pXMax + d.pw * pd;
-                                            ov.append(d.cpwrap);
-                                        }
-                                        else {
-                                            d.cdi = d.cdi - pd;
-                                        }
-                                    }
-                                    ny = d.top + diffy;
-                                    var pny = ny % 21;
-                                    if (pny != 0) {
-                                        ny = ny - pny;
-                                    }
-                                    if (d.ny != ny) {
+                                    d.cdi = d.cdi - pd;
+                                }
+                            }
+                            ny = d.top + diffy;
+                            var pny = ny % 21;
+                            if (pny != 0) {
+                                ny = ny - pny;
+                            }
+                            if (d.ny != ny) {
                                         //log.info("ny=" + ny);
                                         gh = gW(ny, ny + d.h);
                                         //log.info("sh=" + gh.sh + ",sm=" + gh.sm);
@@ -2432,7 +2450,7 @@
                         }
 
                         break;
-                    case 5:
+                        case 5:
                         var data = d.data;
                         if (data != null && data[8] == 1) {
                             var sy = d.sy;
@@ -2472,7 +2490,7 @@
                             }
                         }
                         break;
-                    case 6:
+                        case 6:
                         var sx = d.sx;
                         var x = e.pageX;
                         var y = e.pageY;
@@ -2498,7 +2516,7 @@
                             d.cdi = ndi;
                         }
                         break;
-                    case 7:
+                        case 7:
                         var sx = d.sx;
                         var sy = d.sy;
                         var x = e.pageX;
@@ -2526,105 +2544,105 @@
                             d.cdi = ndi;
                         }
                         break;
+                    }
                 }
+                return false;
             }
-            return false;
-        }
-        function dragEnd(e) {
-            if (_dragdata) {
-                var d = _dragdata;
-                switch (d.type) {
+            function dragEnd(e) {
+                if (_dragdata) {
+                    var d = _dragdata;
+                    switch (d.type) {
                     case 1: //选择单日的时间段来添加日程
-                        var wrapid = new Date().getTime();
-                        tp = d.target.offset().top;
-                        if (!d.cpwrap) {
-                            var gh = gH(d.sy, d.sy + 42, tp);
-                            var ny = gP(gh.sh, gh.sm);
-                            var tempdata = buildtempdayevent(gh.sh, gh.sm, gh.eh, gh.em, gh.h);
-                            d.cpwrap = $("<div class='ca-evpi drag-chip-wrapper' style='top:" + ny + "px'/>").html(tempdata);
-                            $(d.target).find("div.tg-col-overlaywrapper").append(d.cpwrap);
-                            d.cgh = gh;
-                        }
-                        var pos = d.cpwrap.offset();
-                        pos.left = pos.left + 30;
-                        d.cpwrap.attr("id", wrapid);
-                        var start = strtodate(d.target.attr("abbr") + " " + d.cgh.sh + ":" + d.cgh.sm);
-                        var end = strtodate(d.target.attr("abbr") + " " + d.cgh.eh + ":" + d.cgh.em);
-                        _dragevent = function() { $("#" + wrapid).remove(); $("#bbit-cal-buddle").css("visibility", "hidden"); };
-                        quickadd(start, end, false, pos);
-                        break;
+                    var wrapid = new Date().getTime();
+                    tp = d.target.offset().top;
+                    if (!d.cpwrap) {
+                        var gh = gH(d.sy, d.sy + 42, tp);
+                        var ny = gP(gh.sh, gh.sm);
+                        var tempdata = buildtempdayevent(gh.sh, gh.sm, gh.eh, gh.em, gh.h);
+                        d.cpwrap = $("<div class='ca-evpi drag-chip-wrapper' style='top:" + ny + "px'/>").html(tempdata);
+                        $(d.target).find("div.tg-col-overlaywrapper").append(d.cpwrap);
+                        d.cgh = gh;
+                    }
+                    var pos = d.cpwrap.offset();
+                    pos.left = pos.left + 30;
+                    d.cpwrap.attr("id", wrapid);
+                    var start = strtodate(d.target.attr("abbr") + " " + d.cgh.sh + ":" + d.cgh.sm);
+                    var end = strtodate(d.target.attr("abbr") + " " + d.cgh.eh + ":" + d.cgh.em);
+                    _dragevent = function() { $("#" + wrapid).remove(); $("#bbit-cal-buddle").css("visibility", "hidden"); };
+                    quickadd(start, end, false, pos);
+                    break;
                     case 2: //周日视图添加日程
                     case 3: //月视图添加日程
-                        var source = e.srcElement || e.target;
-                        var lassoid = new Date().getTime();
-                        if (!d.lasso) {
-                            if ($(source).hasClass("monthdayshow")) {
-                                weekormonthtoday.call($(source).parent()[0], e);
-                                break;
-                            }
-                            d.fdi = d.sdi = getdi(d.xa, d.ya, d.sx, d.sy);
-                            d.lasso = $("<div style='z-index: 10; display: block' class='drag-lasso-container'/>");
-                            $(document.body).append(d.lasso);
-                            addlasso(d.lasso, d.sdi, d.fdi, d.xa, d.ya, d.h);
+                    var source = e.srcElement || e.target;
+                    var lassoid = new Date().getTime();
+                    if (!d.lasso) {
+                        if ($(source).hasClass("monthdayshow")) {
+                            weekormonthtoday.call($(source).parent()[0], e);
+                            break;
                         }
-                        d.lasso.attr("id", lassoid);
-                        var si = Math.min(d.fdi.di, d.sdi.di);
-                        var ei = Math.max(d.fdi.di, d.sdi.di);
-                        var firstday = option.vstart;
-                        var start = DateAdd("d", si, firstday);
-                        var end = DateAdd("d", ei, firstday);
-                        _dragevent = function() { $("#" + lassoid).remove(); };
-                        quickadd(start, end, true, { left: e.pageX, top: e.pageY });
-                        break;
+                        d.fdi = d.sdi = getdi(d.xa, d.ya, d.sx, d.sy);
+                        d.lasso = $("<div style='z-index: 10; display: block' class='drag-lasso-container'/>");
+                        $(document.body).append(d.lasso);
+                        addlasso(d.lasso, d.sdi, d.fdi, d.xa, d.ya, d.h);
+                    }
+                    d.lasso.attr("id", lassoid);
+                    var si = Math.min(d.fdi.di, d.sdi.di);
+                    var ei = Math.max(d.fdi.di, d.sdi.di);
+                    var firstday = option.vstart;
+                    var start = DateAdd("d", si, firstday);
+                    var end = DateAdd("d", ei, firstday);
+                    _dragevent = function() { $("#" + lassoid).remove(); };
+                    quickadd(start, end, true, { left: e.pageX, top: e.pageY });
+                    break;
                     case 4: // 单日日程的移动
-                        if (d.cpwrap) {
-                            var start = DateAdd("d", d.cdi, option.vstart);
-                            var end = DateAdd("d", d.cdi, option.vstart);
-                            var gh = gW(d.ny, d.ny + d.h);
-                            start.setHours(gh.sh, gh.sm);
-                            end.setHours(gh.eh, gh.em);
-                            if (start.getTime() == d.data[2].getTime() && end.getTime() == d.data[3].getTime()) {
-                                d.cpwrap.remove();
-                                d.target.show();
-                            }
-                            else {
-                                dayupdate(d.data, start, end);
-                            }
+                    if (d.cpwrap) {
+                        var start = DateAdd("d", d.cdi, option.vstart);
+                        var end = DateAdd("d", d.cdi, option.vstart);
+                        var gh = gW(d.ny, d.ny + d.h);
+                        start.setHours(gh.sh, gh.sm);
+                        end.setHours(gh.eh, gh.em);
+                        if (start.getTime() == d.data[2].getTime() && end.getTime() == d.data[3].getTime()) {
+                            d.cpwrap.remove();
+                            d.target.show();
                         }
-                        break;
+                        else {
+                            dayupdate(d.data, start, end);
+                        }
+                    }
+                    break;
                     case 5: //Resize
-                        if (d.cpwrap) {
-                            var start = new Date(d.data[2].toString());
-                            var end = new Date(d.data[3].toString());
-                            var gh = gW(d.top, d.top + nh);
-                            start.setHours(gh.sh, gh.sm);
-                            end.setHours(gh.eh, gh.em);
+                    if (d.cpwrap) {
+                        var start = new Date(d.data[2].toString());
+                        var end = new Date(d.data[3].toString());
+                        var gh = gW(d.top, d.top + nh);
+                        start.setHours(gh.sh, gh.sm);
+                        end.setHours(gh.eh, gh.em);
 
-                            if (start.getTime() == d.data[2].getTime() && end.getTime() == d.data[3].getTime()) {
-                                d.cpwrap.remove();
-                                d.target.show();
-                            }
-                            else {
-                                dayupdate(d.data, start, end);
-                            }
+                        if (start.getTime() == d.data[2].getTime() && end.getTime() == d.data[3].getTime()) {
+                            d.cpwrap.remove();
+                            d.target.show();
                         }
-                        break;
+                        else {
+                            dayupdate(d.data, start, end);
+                        }
+                    }
+                    break;
                     case 6:
                     case 7:
-                        if (d.lasso) {
-                            d.cpwrap.remove();
-                            d.lasso.remove();
-                            var start = new Date(d.data[2].toString());
-                            var end = new Date(d.data[3].toString());
-                            var currrentdate = DateAdd("d", d.cdi.di, option.vstart);
-                            var diff = DateDiff("d", start, currrentdate);
-                            start = DateAdd("d", diff, start);
-                            end = DateAdd("d", diff, end);
-                            if (start.getTime() != d.data[2].getTime() || end.getTime() != d.data[3].getTime()) {
-                                dayupdate(d.data, start, end);
-                            }
+                    if (d.lasso) {
+                        d.cpwrap.remove();
+                        d.lasso.remove();
+                        var start = new Date(d.data[2].toString());
+                        var end = new Date(d.data[3].toString());
+                        var currrentdate = DateAdd("d", d.cdi.di, option.vstart);
+                        var diff = DateDiff("d", start, currrentdate);
+                        start = DateAdd("d", diff, start);
+                        end = DateAdd("d", diff, end);
+                        if (start.getTime() != d.data[2].getTime() || end.getTime() != d.data[3].getTime()) {
+                            dayupdate(d.data, start, end);
                         }
-                        break;
+                    }
+                    break;
                 }
                 d = _dragdata = null;
                 //$('body').noSelect(false);
@@ -2717,8 +2735,8 @@
             cpwrap.css({ left: x, top: y });
         }
         $(document)
-		.mousemove(dragMove)
-		.mouseup(dragEnd);
+        .mousemove(dragMove)
+        .mouseup(dragEnd);
         //.mouseout(dragEnd); //移出页面则拖动事件停止
 
         var c = {
@@ -2746,14 +2764,14 @@
             pv: function() {
                 switch (option.view) {
                     case "day":
-                        option.showday = DateAdd("d", -1, option.showday);
-                        break;
+                    option.showday = DateAdd("d", -1, option.showday);
+                    break;
                     case "week":
-                        option.showday = DateAdd("w", -1, option.showday);
-                        break;
+                    option.showday = DateAdd("w", -1, option.showday);
+                    break;
                     case "month":
-                        option.showday = DateAdd("m", -1, option.showday);
-                        break;
+                    option.showday = DateAdd("m", -1, option.showday);
+                    break;
                 }
                 render();
                 dochange();
@@ -2761,79 +2779,79 @@
             nt: function() {
                 switch (option.view) {
                     case "day":
-                        option.showday = DateAdd("d", 1, option.showday);
-                        break;
+                    option.showday = DateAdd("d", 1, option.showday);
+                    break;
                     case "week":
-                        option.showday = DateAdd("w", 1, option.showday);
-                        break;
+                    option.showday = DateAdd("w", 1, option.showday);
+                    break;
                     case "month":
-                        var od = option.showday.getDate();
-                        option.showday = DateAdd("m", 1, option.showday);
-                        var nd = option.showday.getDate();
+                    var od = option.showday.getDate();
+                    option.showday = DateAdd("m", 1, option.showday);
+                    var nd = option.showday.getDate();
                         if (od != nd) //如果日期不相等则，说明进了一月
                         {
                             option.showday = DateAdd("d", 0 - nd, option.showday); //上一月的最后一天
                         }
                         break;
+                    }
+                    render();
+                    dochange();
+                },
+                go: function() {
+                    return option;
+                },
+                so: function(p) {
+                    option = $.extend(option, p);
                 }
-                render();
-                dochange();
-            },
-            go: function() {
-                return option;
-            },
-            so: function(p) {
-                option = $.extend(option, p);
+            };
+            this[0].bcal = c;
+            return this;
+        };
+
+        $.fn.BCalSwtichview = function(view) {
+            return this.each(function() {
+                if (this.bcal) {
+                    this.bcal.sv(view);
+                }
+            })
+        };
+        $.fn.BCalReload = function() {
+            return this.each(function() {
+                if (this.bcal) {
+                    this.bcal.rf();
+                }
+            })
+        };
+        $.fn.BCalGoToday = function(d) {
+            return this.each(function() {
+                if (this.bcal) {
+                    this.bcal.gt(d);
+                }
+            })
+        };
+        $.fn.BCalPrev = function() {
+            return this.each(function() {
+                if (this.bcal) {
+                    this.bcal.pv();
+                }
+            })
+        };
+        $.fn.BCalNext = function() {
+            return this.each(function() {
+                if (this.bcal) {
+                    this.bcal.nt();
+                }
+            })
+        };
+        $.fn.BcalGetOp = function() {
+            if (this[0].bcal) {
+                return this[0].bcal.go();
+            }
+            return null;
+        };
+        $.fn.BcalSetOp = function(p) {
+            if (this[0].bcal) {
+                return this[0].bcal.so(p);
             }
         };
-        this[0].bcal = c;
-        return this;
-    };
-
-    $.fn.BCalSwtichview = function(view) {
-        return this.each(function() {
-            if (this.bcal) {
-                this.bcal.sv(view);
-            }
-        })
-    };
-    $.fn.BCalReload = function() {
-        return this.each(function() {
-            if (this.bcal) {
-                this.bcal.rf();
-            }
-        })
-    };
-    $.fn.BCalGoToday = function(d) {
-        return this.each(function() {
-            if (this.bcal) {
-                this.bcal.gt(d);
-            }
-        })
-    };
-    $.fn.BCalPrev = function() {
-        return this.each(function() {
-            if (this.bcal) {
-                this.bcal.pv();
-            }
-        })
-    };
-    $.fn.BCalNext = function() {
-        return this.each(function() {
-            if (this.bcal) {
-                this.bcal.nt();
-            }
-        })
-    };
-    $.fn.BcalGetOp = function() {
-        if (this[0].bcal) {
-            return this[0].bcal.go();
-        }
-        return null;
-    };
-    $.fn.BcalSetOp = function(p) {
-        if (this[0].bcal) {
-            return this[0].bcal.so(p);
-        }
-    };
-})(jQuery);
+    })(jQuery);

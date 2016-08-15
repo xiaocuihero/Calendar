@@ -38,9 +38,10 @@ function QuickAdd()
 	$strStartTime = getPref("CalendarStartTime");
 	$strEndTime =  getPref("CalendarEndTime");
 	$isallday =  getPref("IsAllDayEvent");
-	$clientzone = getPref('timezone');
+	$clientzone = getPref('timezone');	
 	$serverzone= TIMEZONE_INDEX;
 	$zonediff = 0 ; 
+	$category = getPref('Category');
 	$start_date = DateTime::createFromFormat(msg("datestring")." H:i",$strStartTime);
 	if ($start_date==null) {
 		$ret["IsSuccess"] =false;
@@ -55,6 +56,7 @@ function QuickAdd()
 		echo json_encode($ret);
 		return;
 	}
+
 	
 	try
 	{
@@ -70,7 +72,8 @@ function QuickAdd()
 		"UPAccount" => $userid,
 		"UPName" => $department,
 		"UPTime" => new DateTime(),
-		"MasterId" => $clientzone
+		"MasterId" => $clientzone,
+		"Category" => $category
 		);
 		//print_r($cal);
 		$newid = DbInsertCalendar($cal);
