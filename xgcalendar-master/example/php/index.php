@@ -130,8 +130,16 @@ ob_end_flush();
                 op.height = _MH - dvH;
                 op.eventItems = __CURRENTDATA;
                 var planOrFinish = new Array();
-                planOrFinish["plan"] = "1";
-                planOrFinish["finish"] = "0";
+                var dateTime = new Date();
+                if (dateTime.getHours() >= 17 && dateTime.getMinutes() >= 30){
+                    planOrFinish["plan"] = "0";
+                    planOrFinish["finish"] = "1";
+                }else{
+                    planOrFinish["plan"] = "1";
+                    planOrFinish["finish"] = "0";
+                }
+
+
                 op.extParam = planOrFinish;
 
 
@@ -193,11 +201,10 @@ ob_end_flush();
                     var eurl = "myEditWindow.php";
                     if (data)
                     {
-                        //var url = StrFormat(eurl,data);
-                        var url = eurl + "?id=" + data[0] + "&name=" + data[1];
+                        var url = eurl + "?id=" + data[0] + "&name=" + data[1] + "&category=" + data[7];
+                        console.log(url);
                         OpenModelWindow(url, {width: 600, height: 400, caption: "<?php echo ucfmsg("editcalendar"); ?>", onclose: function () {
-                                //$("#gridcontainer").BCalReload();
-                            }});
+                        }});
                     }
                 }
                 function View(data)
