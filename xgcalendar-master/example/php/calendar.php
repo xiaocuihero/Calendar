@@ -38,9 +38,10 @@ function QuickAdd()
 	$strStartTime = getPref("CalendarStartTime");
 	$strEndTime =  getPref("CalendarEndTime");
 	$isallday =  getPref("IsAllDayEvent");
-	$clientzone = getPref('timezone');
+	$clientzone = getPref('timezone');	
 	$serverzone= TIMEZONE_INDEX;
 	$zonediff = 0 ; 
+	$category = getPref('Category');
 	$start_date = DateTime::createFromFormat(msg("datestring")." H:i",$strStartTime);
 	if ($start_date==null) {
 		$ret["IsSuccess"] =false;
@@ -55,6 +56,7 @@ function QuickAdd()
 		echo json_encode($ret);
 		return;
 	}
+
 	
 	try
 	{
@@ -70,9 +72,10 @@ function QuickAdd()
 		"UPAccount" => $userid,
 		"UPName" => $department,
 		"UPTime" => new DateTime(),
-		"MasterId" => $clientzone
+		"MasterId" => $clientzone,
+		"Category" => $category
 		);
-		//print_r($cal);
+
 		$newid = DbInsertCalendar($cal);
 		if($newid>0)
 		{
@@ -97,15 +100,14 @@ function QuickUpdate()
 {
 	$ret =array();
 	try
-	{
-		
+	{		
 		$id =getPref("id");
 		$subject =getPref("strname");
-
+		$category = getPref("category");
 		$clientzone = 8;
 		$serverzone= 8;
 		$zonediff = 0 ; 		
-		$rcount = DbUpdateCalendar($id,$subject);
+		$rcount = DbUpdateCalendar($id,$subject,$category);
 		if($rcount>0)
 		{
 			$ret["IsSuccess"] =true;
@@ -201,11 +203,10 @@ function DbDeleteCalendar($id)
 	}		
 	return -1;
 }
-function DbUpdateCalendar($id,$subject)
+function DbUpdateCalendar($id,$subject,$category)
 {
 	$db = db_connect();
-	$sql = "UPDATE calendar set Subject='{$subject}' where Id={$id}";
-
+	$sql = "UPDATE calendar set Subject='{$subject}', Category='{$category}'  where Id={$id}";
 	$affected_rowscount =$db->exec($sql);	
 	
 	if($affected_rowscount>0)

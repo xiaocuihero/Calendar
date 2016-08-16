@@ -77,9 +77,8 @@
      var projectinfo = document.getElementById("projectinfo").value;
 	 var projectsite = document.getElementById("projectsite").value;	 
      var projectmonitor = document.getElementById("projectmonitor").value;
-	 var start = document.getElementById("start").innerHTML;
-	 var start1 = document.getElementById("start1").innerHTML; 	
-     var end = document.getElementById("end").innerHTML;
+	 var charge = document.getElementById("charge").innerHTML;
+	 var start1 = document.getElementById("start1").innerHTML; 	   
 	 var end1 = document.getElementById("end1").innerHTML;	 
      var contract = document.getElementById("contract").value;
 	 var projectstatus = document.getElementById("projectstatus").value;
@@ -95,9 +94,8 @@
                    projectinfo:projectinfo,
                    projectsite:projectsite,
                    projectmonitor:projectmonitor,
-                   start2:start,
+                   charge:charge,
 				   start1:start1,
-                   end2:end,
                    end1:end1,
                    contract:contract,
 				   projectstatus:projectstatus
@@ -147,19 +145,17 @@ function loaduser() {
         <br />
         <span>项目负责人：</span><select id="projectmonitor" name="projectmonitor">
             <option value="0"></option>
-        </select><br />
-        <div class="demo3">
-            <ul class="inline">
-                预计开始日：<li class="inline laydate-icon" id="start" style="width: 200px; margin-right: 10px;">
-                </li><li></li><li></li>
-                预计结束日：<li class="inline laydate-icon" id="end" style="width: 200px;"></li>
-            </ul>
-        </div>
+        </select><br /><br />
+        
         合同：<label><input id="contract" name="Fruit" type="radio" value="1" />已签
         </label>
         <label>
             <input id="contract" name="Fruit" type="radio" value="0" />未签
         </label>
+        <br /><br />
+        合同费用：
+        <input type="text" id="charge" name="charge" /><br />
+        
         <div class="demo3">
             <ul class="inline">
                 实际开始日：<li class="inline laydate-icon" id="start1" style="width: 200px; margin-right: 10px;">

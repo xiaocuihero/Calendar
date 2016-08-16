@@ -49,7 +49,7 @@ var i18n = $.extend({}, i18n || {}, {
         "data_format_error": "数据格式错误！",
         "invalid_title": "日志标题不能为空且不能包含符号($<>)",
         "view_no_ready": "视图未准备就绪",
-        "example": "例如：有个办公会议",
+        "example": "",
         "content": "内 容",
         "create_event": "创建日志",
         "update_detail": "修改日志详细信息",
