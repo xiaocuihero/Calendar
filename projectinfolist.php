@@ -163,12 +163,11 @@
             <th scope="col">项目名称</th> 
             <th scope="col">项目内容</th> 
             <th scope="col">项目规模</th>
-            <th scope="col">合同费用</th> 
+            <th scope="col">合同费用 [已付款]</th> 
             <th scope="col">项目负责人</th>
             <th scope="col">项目参与人</th>  
             <th scope="col">起止时间</th> 
             <th scope="col">当前进度</th>
-            <th scope="col">已收费</th>
             <th scope="col">操作</th>
             <?php
             $s = 1;
@@ -240,13 +239,19 @@
                         <td class="row"><?php echo $projectname ?></td> 
                         <td class="row"><?php echo $projectcontent ?></td> 
                         <td class="row"><?php echo $site ?></td> 
-                        <td class="row"><?php echo $charge ?></td>
+                        <td class="row">
+                            <?php
+                            $returnmoneyTemp = "未付款";
+                            if ($returnmoney != "" && $returnmoney != null){
+                                $returnmoneyTemp = $returnmoney;
+                            }
+                            echo $charge."  [".$returnmoneyTemp."]";
+                            ?>
+                        </td>
                         <td class="row"><?php echo $realname ?></td> 
-
                         <td class="row" style="max-width:200;word-wrap: break-word"><?php echo $cname ?></td> 
                         <td class="row"><?php echo $pdate ?></td>
                         <td class="row"><?php echo $pprogress ?></td>
-                        <td class="row"><?php echo $returnmoney ?></td>  
                         <td class="row" align="center"><a href=<?php echo $href1 ?> >日志</a>           	<a href=<?php echo $href2 ?> >项目报告</a></td>  
                     </tr> 
                     <?php
