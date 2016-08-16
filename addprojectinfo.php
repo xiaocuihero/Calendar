@@ -2,18 +2,16 @@
 	//取楼层ID	
 	$projectname="";
 	$projectname=$_GET['projectname'];
-	$projectinfo="";
-	$projectinfo=$_GET['projectinfo'];
+	$projectcontent="";
+	$projectcontent=$_GET['projectcontent'];
 	$projectsite="";
 	$projectsite=$_GET['projectsite'];
 	$projectmonitor="";
 	$projectmonitor=$_GET['projectmonitor'];
-	$start2="";
-	$start2=$_GET['start2'];
+	$charge="";
+	$charge=$_GET['charge'];
 	$start1="";
-	$start1=$_GET['start1'];
-	$end2="";
-	$end2=$_GET['end2'];
+	$start1=$_GET['start1'];	
 	$end1="";
 	$end1=$_GET['end1'];
 	$contract="";
@@ -26,7 +24,7 @@
 	  {
 	  die('Could not connect: ' . mysql_error());
 	  }
-	  $sql="INSERT INTO `project`(`projectname`, `projectcontent`, `projectmonitorid`, `prestartdate`, `startdate`, `preenddate`, `enddate`, `status`, `site`, `contract`) VALUES ('$projectname','$projectinfo','$projectmonitor','$start2','$start1','$end2','$end1','$projectstatus','$projectsite','$contract')";
+	  $sql="INSERT INTO `project`(`projectname`, `projectcontent`, `projectmonitorid`, `charge`, `startdate`, `enddate`, `status`, `site`, `contract`) VALUES ('$projectname','$projectcontent','$projectmonitor','$charge','$start1','$end1','$projectstatus','$projectsite','$contract')";
 	  if (!mysqli_query($con,$sql))
 	  {
 	  die('Error: ' . mysqli_error());
