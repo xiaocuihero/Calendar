@@ -50,8 +50,8 @@ ob_end_flush();
                         <span id="txtdatetimeshow">加载</span>
                     </div>
                 </div>
-                <div class="btnseparator"><input type='checkbox' id="planCheckBox">计划</div>            
-                <div class="btnseparator"><input type='checkbox' id="finishCheckBox">完成</div>         
+                <div class="btnseparator"><input type='checkbox' id="planCheckBox"><font color="#b373b3">计划</font></div>            
+                <div class="btnseparator"><input type='checkbox' id="finishCheckBox"><font color="#d96666">完成</font></div>         
                 <div class="clear"></div>                
             </div>
         </div>
@@ -131,17 +131,9 @@ ob_end_flush();
                 op.eventItems = __CURRENTDATA;
                 var planOrFinish = new Array();
                 var dateTime = new Date();
-                if (dateTime.getHours() >= 17 && dateTime.getMinutes() >= 30){
-                    planOrFinish["plan"] = "0";
-                    planOrFinish["finish"] = "1";
-                }else{
-                    planOrFinish["plan"] = "1";
-                    planOrFinish["finish"] = "0";
-                }
-
-
+                planOrFinish["plan"] = "1";
+                planOrFinish["finish"] = "1";
                 op.extParam = planOrFinish;
-
 
                 var p = $("#gridcontainer").bcalendar(op).BcalGetOp();
                 if (p && p.datestrshow) {
@@ -313,13 +305,8 @@ ob_end_flush();
                     location.href = "?lang=en-au";
                 });
 
-                var dateTime = new Date();
-                if (dateTime.getHours() >= 17 && dateTime.getMinutes() >= 30){
-                    $("#finishCheckBox").attr("checked","checked");
-                }else{
-                    $("#planCheckBox").attr("checked","checked");
-                }
-
+                $("#finishCheckBox").attr("checked","checked");
+                $("#planCheckBox").attr("checked","checked");
                 $("#planCheckBox").change(function(){                    
                     if(this.checked){
                         planOrFinish["plan"] = "1";
