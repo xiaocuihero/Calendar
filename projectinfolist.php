@@ -353,22 +353,19 @@
                         <td class="row"><?php echo $projectname ?></td> 
                         <td class="row"><?php echo $projectcontent ?></td> 
                         <td class="row"><?php echo $site ?></td> 
-                        <td class="row"><?php echo $charge ?></td>
+                        <td class="row">
+                            <?php
+                            $returnmoneyTemp = "未付款";
+                            if ($returnmoney != "" && $returnmoney != null){
+                                $returnmoneyTemp = $returnmoney;
+                            }
+                            echo $charge."  [".$returnmoneyTemp."]";
+                            ?>
+                        </td>
                         <td class="row"><?php echo $realname ?></td> 
-        <!--                        <td class="row"><select id="cperson<?php echo $id ?>" name="cperson">                     
-                            </select>
-                            <script type="text/javascript">
-                                var cname = "<?php echo $cname; ?>";
-                                arr2 = cname.split(',');
-                                for (var i = 0; i < arr2.length; i++) {
-                                    var newItem = new Option(arr2[i], arr2[i]);
-                                    document.getElementById("cperson<?php echo $id ?>").options.add(newItem);
-                                }
-                            </script></td> -->
                         <td class="row"><?php echo $cname ?></td> 
                         <td class="row"><?php echo $pdate ?></td>
                         <td class="row"><?php echo $pprogress ?></td>
-                        <td class="row"><?php echo $returnmoney ?></td>  
                         <td class="row" align="center"><a href=<?php echo $href1 ?> >日志</a></td>  
                     </tr> 
                     <?php
