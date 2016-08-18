@@ -676,3 +676,13 @@ border-bottom:2px solid #c3d9ff;
 {
     text-decoration:underline;
 }
+.myPlan
+{
+	background-color: #b373b3;
+	color: #ffffff;
+}
+.myFinish
+{
+	background-color: #d96666;
+	color: #ffffff;
+}

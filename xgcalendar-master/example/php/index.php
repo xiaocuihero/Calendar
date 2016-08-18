@@ -50,8 +50,16 @@ ob_end_flush();
                         <span id="txtdatetimeshow">加载</span>
                     </div>
                 </div>
-                <div class="btnseparator"><input type='checkbox' id="planCheckBox"><font color="#b373b3">计划</font></div>            
-                <div class="btnseparator"><input type='checkbox' id="finishCheckBox"><font color="#d96666">完成</font></div>         
+                <div class="btnseparator">
+                    <div class="myPlan" id="planContainer">
+                        <input type='checkbox' id="planCheckBox">计划
+                    </div>
+                </div>            
+                <div class="btnseparator">
+                    <div class="myFinish" id="finishContainer">
+                        <input type='checkbox' id="finishCheckBox">完成
+                    </div>
+                </div>       
                 <div class="clear"></div>                
             </div>
         </div>
@@ -313,6 +321,7 @@ ob_end_flush();
                     }else{
                         planOrFinish["plan"] = "0";
                     }
+                    $("#planContainer").toggleClass("myPlan");
                     op.extParam = planOrFinish;
                     $("#gridcontainer").bcalendar(op).BcalGetOp();
                 });
@@ -322,9 +331,10 @@ ob_end_flush();
                     }else{
                         planOrFinish["finish"] = "0";
                     }
+                    $("#finishContainer").toggleClass("myFinish");
                     op.extParam = planOrFinish;
                     $("#gridcontainer").bcalendar(op).BcalGetOp();
-                });
+                });                
             });
         </script>
     </body>
