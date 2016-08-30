@@ -3,7 +3,7 @@
 	$projectname="";
 	$projectname=$_GET['projectname'];
 	$projectcontent="";
-	$projectcontent=$_GET['projectcontent'];
+	$projectcontent=$_GET['projectinfo'];
 	$projectsite="";
 	$projectsite=$_GET['projectsite'];
 	$projectmonitor="";

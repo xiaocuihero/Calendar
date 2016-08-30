@@ -285,7 +285,7 @@ while($row = mysqli_fetch_row($result)){
 		</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 报告类型：<select id="reportclass"  name="reportclass">
         <option value="0" >计划</option>
-		<option value="1" >完成</option>
+		<option value="1" selected="selected" >完成</option>
 		</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 回款情况：<input type="text" id="returnmoney" name="returnmoney" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 项目进度：<input type="text" id="projectprogress" name="projectprogress" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

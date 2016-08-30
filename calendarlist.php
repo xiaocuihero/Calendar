@@ -135,7 +135,7 @@ body,td,th {
   <br/>
   <form id="categoryForm"> 
     <input type="radio" name="planOrFinish" id="radioPlan" value = "0">计划    
-    <input type="radio" name="planOrFinish" id="radioFinish" value = "1"> 完成  
+    <input type="radio" name="planOrFinish" id="radioFinish" value = "1">完成  
   </form>
 </div>
 <table id="mytable" cellspacing="0"> 

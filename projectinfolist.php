@@ -143,10 +143,10 @@
         <span>部门：</span><select id="department" name="department" onchange="onchangestatus(1)">
             <option value="0">公司</option>
             <option value="1">市场部</option>
-            <option value="2">BIM部</option>
+            <option value="2">BIM咨询部</option>
             <option value="3">互动媒体部</option>
-            <option value="4">GIS部</option>
-            <option value="5">研发部</option>
+            <option value="4">数字平台部</option>
+            <option value="5">技研部</option>
             <option value="6">综合部</option>
         </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <span>项目状态：</span><select id="projectstatus" name="projectstatus" onchange="onchangestatus(2)">
@@ -161,11 +161,11 @@
         <table id="mytable" cellspacing="0"> 
             <caption>项目列表</caption> 
             <th scope="col">项目名称</th> 
-            <th scope="col">项目内容</th> 
+            <th scope="col" style="width:30%">项目内容</th> 
             <th scope="col">项目规模</th>
-            <th scope="col">合同费用 [已付款]</th> 
-            <th scope="col">项目负责人</th>
-            <th scope="col">项目参与人</th>  
+            <th scope="col">合同费用[已付款](万元) </th> 
+            <th scope="col">负责人</th>
+            <th scope="col">参与人</th>  
             <th scope="col">起止时间</th> 
             <th scope="col">当前进度</th>
             <th scope="col">操作</th>
@@ -353,19 +353,22 @@
                         <td class="row"><?php echo $projectname ?></td> 
                         <td class="row"><?php echo $projectcontent ?></td> 
                         <td class="row"><?php echo $site ?></td> 
-                        <td class="row">
-                            <?php
-                            $returnmoneyTemp = "未付款";
-                            if ($returnmoney != "" && $returnmoney != null){
-                                $returnmoneyTemp = $returnmoney;
-                            }
-                            echo $charge."  [".$returnmoneyTemp."]";
-                            ?>
-                        </td>
+                        <td class="row"><?php echo $charge ?></td>
                         <td class="row"><?php echo $realname ?></td> 
+        <!--                        <td class="row"><select id="cperson<?php echo $id ?>" name="cperson">                     
+                            </select>
+                            <script type="text/javascript">
+                                var cname = "<?php echo $cname; ?>";
+                                arr2 = cname.split(',');
+                                for (var i = 0; i < arr2.length; i++) {
+                                    var newItem = new Option(arr2[i], arr2[i]);
+                                    document.getElementById("cperson<?php echo $id ?>").options.add(newItem);
+                                }
+                            </script></td> -->
                         <td class="row"><?php echo $cname ?></td> 
                         <td class="row"><?php echo $pdate ?></td>
                         <td class="row"><?php echo $pprogress ?></td>
+                        <td class="row"><?php echo $returnmoney ?></td>  
                         <td class="row" align="center"><a href=<?php echo $href1 ?> >日志</a></td>  
                     </tr> 
                     <?php

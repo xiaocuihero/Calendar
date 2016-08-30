@@ -119,7 +119,7 @@
 <table id="mytable" cellspacing="0"> 
 	<caption>项目列表</caption> 
 	<th scope="col">项目名称</th> 
-	<th scope="col">项目内容</th> 
+	<th scope="col" style="width:30%">项目内容</th> 
 	<th scope="col">项目规模</th>
 	<th scope="col">合同费用 [已付款]</th> 
 	<th scope="col">项目负责人</th>
