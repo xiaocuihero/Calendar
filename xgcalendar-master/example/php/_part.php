@@ -46,6 +46,10 @@ if($result)
 		else{
 			$username=$row["Subject"];
 		}
+		// if(strpos($username,chr(10))){
+			// echo "1_____________________________________________1";
+		// }
+		$username = str_replace(chr(10), 'qYQVP9', $username);
 		if($i>0) 
 		{
 			echo ",";

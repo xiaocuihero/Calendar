@@ -1061,7 +1061,7 @@
             x = y = z = cday = null;
             //return htr;
         }
-        function BuildMonthDayEvent(e, cday, length) {
+        function BuildMonthDayEvent(e, cday, length) {            
             var theme;
             if (e.event[7] && e.event[7] >= 0) {
                 theme = tc(e.event[7]);
@@ -1105,6 +1105,7 @@
             else {
                 cen = e.event[1];
             }
+            cen = cen.replace(/qYQVP9/g,";");
             var content = [];
             content.push(Tp(sp, { content: cen }));
             content.push(i);
@@ -1449,6 +1450,7 @@
 
     }
     function quickd(type) {
+        console.log(123123123);
         $("#bbit-cs-buddle").css("visibility", "hidden");
         var calid = $("#bbit-cs-id").val();
         var param = [{ "name": "calendarId", value: calid },
@@ -1491,9 +1493,11 @@
             return { left: tleft, top: ttop, hide: ishide };
         }
         function dayshow(e, data) {
+
             if (data == undefined) {
                 data = getdata($(this));
             }
+            console.log(data);
             if (data != null) {
                 if (option.quickDeleteUrl != "" && data[8] == 1 && option.readonly != true) {
                     var csbuddle = '<div id="bbit-cs-buddle" style="z-index: 990; width: 400px;visibility:hidden;" class="bubble"><table class="bubble-table" cellSpacing="0" cellPadding="0"><tbody><tr><td class="bubble-cell-side"><div id="tl1" class="bubble-corner"><div class="bubble-sprite bubble-tl"></div></div><td class="bubble-cell-main"><div class="bubble-top"></div><td class="bubble-cell-side"><div id="tr1" class="bubble-corner"><div class="bubble-sprite bubble-tr"></div></div>  <tr><td class="bubble-mid" colSpan="3"><div style="overflow: hidden" id="bubbleContent1"><div><div></div><div class="cb-root"><table class="cb-table" cellSpacing="0" cellPadding="0"><tbody><tr><td class="cb-value"><div class="textbox-fill-wrapper"><div class="textbox-fill-mid"><div id="bbit-cs-what" title="'
@@ -1501,6 +1505,7 @@
                     + i18n.xgcalendar.i_delete + '</span> ]&nbsp; <SPAN id="bbit-cs-editLink" class="lk">'
                     + i18n.xgcalendar.update_detail + ' <StrONG>»</StrONG></SPAN></div></div></div></div><tr><td><div id="bl1" class="bubble-corner"><div class="bubble-sprite bubble-bl"></div></div><td><div class="bubble-bottom"></div><td><div id="br1" class="bubble-corner"><div class="bubble-sprite bubble-br"></div></div></tr></tbody></table><div id="bubbleClose2" class="bubble-closebutton"></div><div id="prong1" class="prong"><div class=bubble-sprite></div></div></div>';
                     var bud = $("#bbit-cs-buddle");
+
                     if (bud.length == 0) {
                         bud = $(csbuddle).appendTo(document.body);
                         var calbutton = $("#bbit-cs-delete");
@@ -1578,7 +1583,8 @@
                         }
                     }
                     var ts = $("#bbit-cs-buddle-timeshow").html(ss.join(""));
-                    $("#bbit-cs-what").html(data[1]);
+                    $cztitle = data[1].replace('qYQVP9','<br>');
+                    $("#bbit-cs-what").html($cztitle);
                     $("#bbit-cs-id").val(data[0]);
                     bud.data("cdata", data);
                     bud.css({ "visibility": "visible", left: pos.left, top: pos.top });
@@ -1795,6 +1801,8 @@
             }
         }
         function quickadd(start, end, isallday, pos) {
+            console.log(123123123);
+
             if ((!option.quickAddHandler && option.quickAddUrl == "") || option.readonly) {
                 return;
             }
@@ -1870,7 +1878,6 @@
                         realsedragevent();
                     }
                     else {
-                        console.log(2);
                         $("#bbit-cal-buddle").css("visibility", "hidden");
                         var newdata = [];
                         var tId = -1;

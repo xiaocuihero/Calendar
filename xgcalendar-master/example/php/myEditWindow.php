@@ -18,13 +18,14 @@
 	?>
 	<script type="text/javascript">	
 		function changeTextArea(){
-			document.getElementById("myTextArea").value=strname;			
+			var czcontent = strname.replace(/qYQVP9/g, String.fromCharCode(10));
+			document.getElementById("myTextArea").value=czcontent;			
 		}
 
 		function save()
 		{
 			var newname=document.getElementById("myTextArea").value;
-			newname = newname.replace(/[\r\n]/g, ";");
+			// newname = newname.replace(/[\r\n]/g, ";");
 			var url="calendar.php";
 			var category1 = parseInt($("input[name=planOrFinishEdit]:checked").val());
 			var data =
