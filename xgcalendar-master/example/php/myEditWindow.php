@@ -24,6 +24,7 @@
 		function save()
 		{
 			var newname=document.getElementById("myTextArea").value;
+			newname = newname.replace(/[\r\n]/g, ";");
 			var url="calendar.php";
 			var category1 = parseInt($("input[name=planOrFinishEdit]:checked").val());
 			var data =

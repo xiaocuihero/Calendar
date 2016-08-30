@@ -206,6 +206,11 @@ function DbDeleteCalendar($id)
 function DbUpdateCalendar($id,$subject,$category)
 {
 	$db = db_connect();
+	// $subjectTemp = $subject;	
+	// str_replace("\n", ";", $subjectTemp);
+	// str_replace("\r\n", ";", $subjectTemp);
+	// str_replace("\t", ";", $subjectTemp);	
+	// print('<script>console.log(123)</script>');
 	$sql = "UPDATE calendar set Subject='{$subject}', Category='{$category}'  where Id={$id}";
 	$affected_rowscount =$db->exec($sql);	
 	
