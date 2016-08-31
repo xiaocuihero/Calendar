@@ -1072,6 +1072,7 @@
             var p = { color: theme[2], title: "", extendClass: "", extendHTML: "", data: "" };
 
             p.title = getTitle(e.event);
+            p.title = p.title.replace(/qYQVP9/g,";");
             p.id = "bbit_cal_event_" + e.event[0];
             if (option.enableDrag && e.event[8] == 1) {
                 p.eclass = "drag";
@@ -1583,7 +1584,7 @@
                         }
                     }
                     var ts = $("#bbit-cs-buddle-timeshow").html(ss.join(""));
-                    $cztitle = data[1].replace('qYQVP9','<br>');
+                    $cztitle = data[1].replace(/qYQVP9/g,'<br>');
                     $("#bbit-cs-what").html($cztitle);
                     $("#bbit-cs-id").val(data[0]);
                     bud.data("cdata", data);
