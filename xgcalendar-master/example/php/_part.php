@@ -40,15 +40,12 @@ if($result)
 {
 	$i = 0;
 	foreach ($result as $row) {  
-		if($role==0){	
+		if($role==0 || $role==1){	
 		$username=$row["realname"].":".$row["Subject"];
 		}
 		else{
 			$username=$row["Subject"];
 		}
-		// if(strpos($username,chr(10))){
-			// echo "1_____________________________________________1";
-		// }
 		$username = str_replace(chr(10), 'qYQVP9', $username);
 		if($i>0) 
 		{

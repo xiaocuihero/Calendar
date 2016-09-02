@@ -116,7 +116,6 @@
                 case "l": diff = t2 - t1; break;
             }
             return diff;
-
         }
     }
     if ($.fn.noSelect == undefined) {
@@ -304,6 +303,9 @@
             //viewType, showday, events, config
             var showday = new Date(option.showday.getFullYear(), option.showday.getMonth(), option.showday.getDate());
             var events = option.eventItems;
+
+            // console.log(events);
+
             var extParams = option.extParam;
             var categoryIndex = 7;
             if (extParams["plan"] == "1" && extParams["finish"] == "1"){     
@@ -1451,7 +1453,6 @@
 
     }
     function quickd(type) {
-        console.log(123123123);
         $("#bbit-cs-buddle").css("visibility", "hidden");
         var calid = $("#bbit-cs-id").val();
         var param = [{ "name": "calendarId", value: calid },
@@ -1816,7 +1817,7 @@
                 temparr.push('<td class="bubble-cell-main"><div class="bubble-top"></div><td class="bubble-cell-side"><div id="tr1" class="bubble-corner"><div class="bubble-sprite bubble-tr"></div></div>  <tr><td class="bubble-mid" colSpan="3"><div style="overflow: hidden" id="bubbleContent1"><div><div></div><div class="cb-root">');
                 temparr.push('<table class="cb-table" cellSpacing="0" cellPadding="0"><tbody><tr><th class="cb-key">');
                 temparr.push(i18n.xgcalendar.time, ':</th><td class=cb-value><div id="bbit-cal-buddle-timeshow"></div></td></tr><tr><th class="cb-key">');
-                temparr.push(i18n.xgcalendar.content, ':</th><td class="cb-value"><div class="textbox-fill-wrapper"><div class="textbox-fill-mid"><input id="bbit-cal-what" class="textbox-fill-input"/></div></div><div class="cb-example">');
+                temparr.push(i18n.xgcalendar.content, ':</th><td class="cb-value"><div class="textbox-fill-wrapper"><div class="textbox-fill-mid"><textarea id="bbit-cal-what" class="textbox-fill-input"/></div></div><div class="cb-example">');
                 // temparr.push(i18n.xgcalendar.example, '</div></td></tr></tbody></table><input id="bbit-cal-start" type="hidden"/><input id="bbit-cal-end" type="hidden"/><input id="bbit-cal-allday" type="hidden"/><input id="bbit-cal-quickAddBTN" value="');
                 temparr.push(categoryHtml, '</div></td></tr></tbody></table><input id="bbit-cal-start" type="hidden"/><input id="bbit-cal-end" type="hidden"/><input id="bbit-cal-allday" type="hidden"/><input id="bbit-cal-quickAddBTN" value="');
                 temparr.push(i18n.xgcalendar.create_event, '" type="button"/>&nbsp; <SPAN id="bbit-cal-editLink" class="lk">');
@@ -1841,7 +1842,7 @@
                 });
 
 
-                calbutton.click(function(e) {
+                calbutton.click(function(e) {                    
                     if (option.isloading) {
                         return false;
                     }
@@ -1858,6 +1859,7 @@
                         option.isloading = false;
                         return false;
                     }
+                    
                     var zone = new Date().getTimezoneOffset() / 60 * -1;
                     var param = [{ "name": "CalendarTitle", value: what },
                     { "name": "CalendarStartTime", value: datestart },
@@ -1873,23 +1875,24 @@
                     }
 
                     if (option.quickAddHandler && $.isFunction(option.quickAddHandler)) {
-                        console.log(1);
                         option.quickAddHandler.call(this, param);
                         $("#bbit-cal-buddle").css("visibility", "hidden");
-                        realsedragevent();
+                        realsedragevent();  
                     }
                     else {
                         $("#bbit-cal-buddle").css("visibility", "hidden");
                         var newdata = [];
                         var tId = -1;
                         option.onBeforeRequestData && option.onBeforeRequestData(2);
-                        $.post(option.quickAddUrl, param, function(data) {
+                        $.post(option.quickAddUrl, param, function(data) {                            
                             if (data) {
-                                if (data.IsSuccess == true) {
-
+                                if (data.IsSuccess == true) {                                    
                                     option.isloading = false;
                                     option.eventItems[tId][0] = data.Data;
+                                    var CZTitle = option.eventItems[tId][1].replace(/[\r\n]/g, 'qYQVP9');
+                                    option.eventItems[tId][1] = CZTitle;
                                     option.eventItems[tId][8] = 1;
+                                    console.log(option.eventItems[tId]);
                                     render();
                                     option.onAfterRequestData && option.onAfterRequestData(2);
                                 }
@@ -2010,34 +2013,34 @@
                     else if(d1==d2)
                     {
                       i=sl;
-                  }
-                  else {
-                    for (var j = sl - 1; j >= 0; j--) {
-                        if (option.eventItems[j][2] < s) {
-                            i = j + 1;
-                            break;
+                    }
+                    else {
+                        for (var j = sl - 1; j >= 0; j--) {
+                            if (option.eventItems[j][2] < s) {
+                                i = j + 1;
+                                break;
+                            }
                         }
                     }
                 }
+                else {
+                    i = 0;
+                }
             }
             else {
-                i = 0;
+                d = 1;
             }
-        }
-        else {
-            d = 1;
-        }
-        if (option.eventItems && option.eventItems.length > 0) {
-            if (i == option.eventItems.length) {
-                option.eventItems.push(event);
+            if (option.eventItems && option.eventItems.length > 0) {
+                if (i == option.eventItems.length) {
+                    option.eventItems.push(event);
+                }
+                else { option.eventItems.splice(i, d, event); }
             }
-            else { option.eventItems.splice(i, d, event); }
+            else {
+                option.eventItems = [event];
+            }
+            return i;
         }
-        else {
-            option.eventItems = [event];
-        }
-        return i;
-    }
         //endregion 工具函数结束 }
         function ResizeView() {
             var _MH = document.documentElement.clientHeight;

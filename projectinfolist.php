@@ -252,7 +252,9 @@
                         <td class="row" style="max-width:200;word-wrap: break-word"><?php echo $cname ?></td> 
                         <td class="row"><?php echo $pdate ?></td>
                         <td class="row"><?php echo $pprogress ?></td>
-                        <td class="row" align="center"><a href=<?php echo $href1 ?> >日志</a>           	<a href=<?php echo $href2 ?> >项目报告</a></td>  
+                        <td class="row" align="center">
+                        <a href=<?php echo $href1 ?> >日志</a>           	
+                        <a href=<?php echo $href2 ?> >项目报告</a></td>  
                     </tr> 
                     <?php
                 }
