@@ -56,9 +56,9 @@
 	<div id="modal-qrcode" style=" z-index: 1000;">		
 		<p>日志内容：</p>
 		<textarea name="myTextArea" id="myTextArea" cols="80" rows="10"></textarea><br/><br/>
-		<form id="categoryFormEdit"> 
-			计划 <input type="radio" name="planOrFinishEdit" value = "0">
-			完成  <input type="radio" name="planOrFinishEdit" value = "1"> 
+		<form id="categoryFormEdit" > 
+			计划 <input type="radio" name="planOrFinishEdit" value = "0" disabled="disabled">
+			完成  <input type="radio" name="planOrFinishEdit" value = "1" disabled="disabled"> 
 		</form>				 
 		<br/>
 		<button id="updatebtn" type="button" onclick="save()">保存</button> 

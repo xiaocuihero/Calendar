@@ -41,7 +41,7 @@ if($result)
 	$i = 0;
 	foreach ($result as $row) {  
 		if($role==0 || $role==1){	
-		$username=$row["realname"].":".$row["Subject"];
+			$username=$row["realname"].":".$row["Subject"];
 		}
 		else{
 			$username=$row["Subject"];

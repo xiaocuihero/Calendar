@@ -431,7 +431,6 @@
         }
         //切分一半的日程后，全天日程（包括跨日）
         function PropareEvents(dayarrs, events, aDE, sDE) {
-
             var l = dayarrs.length;
             var el = events.length;
             var fE = [];
@@ -1495,11 +1494,9 @@
             return { left: tleft, top: ttop, hide: ishide };
         }
         function dayshow(e, data) {
-
             if (data == undefined) {
                 data = getdata($(this));
             }
-            console.log(data);
             if (data != null) {
                 if (option.quickDeleteUrl != "" && data[8] == 1 && option.readonly != true) {
                     var csbuddle = '<div id="bbit-cs-buddle" style="z-index: 990; width: 400px;visibility:hidden;" class="bubble"><table class="bubble-table" cellSpacing="0" cellPadding="0"><tbody><tr><td class="bubble-cell-side"><div id="tl1" class="bubble-corner"><div class="bubble-sprite bubble-tl"></div></div><td class="bubble-cell-main"><div class="bubble-top"></div><td class="bubble-cell-side"><div id="tr1" class="bubble-corner"><div class="bubble-sprite bubble-tr"></div></div>  <tr><td class="bubble-mid" colSpan="3"><div style="overflow: hidden" id="bubbleContent1"><div><div></div><div class="cb-root"><table class="cb-table" cellSpacing="0" cellPadding="0"><tbody><tr><td class="cb-value"><div class="textbox-fill-wrapper"><div class="textbox-fill-mid"><div id="bbit-cs-what" title="'
@@ -1803,136 +1800,189 @@
             }
         }
         function quickadd(start, end, isallday, pos) {
-            console.log(123123123);
+             $.ajax({
+                type:'post',
+                url:'planFinishCheck.php',
+                dataType:"json",
+                async: false,
+                data:{
+                    checkStart:start.getTime()
+                },
+                success: function (dataT) {
+                    option.extParam["planDayCheck"] = dataT["plan"] == 0;
+                    option.extParam["finishDayCheck"] = dataT["finish"] == 0;   
+                    console.log(dataT);
+                },
+                error: function(msgT){
+                    console.log(msgT);
+                }
+             })
+
+             // console.log(start);
 
             if ((!option.quickAddHandler && option.quickAddUrl == "") || option.readonly) {
                 return;
             }
-            var buddle = $("#bbit-cal-buddle");
-            if (buddle.length == 0) {
-                var temparr = [];
-                var categoryHtml = '<form id="categoryForm"> 计划 <input type="radio" name="planOrFinish" id="radioPlan" value = "0">   完成  <input type="radio" name="planOrFinish" id="radioPlan" value = "1"> </form>';
-                temparr.push('<div id="bbit-cal-buddle" style="z-index: 990; width: 400px;visibility:hidden;" class="bubble">');
-                temparr.push('<table class="bubble-table" cellSpacing="0" cellPadding="0"><tbody><tr><td class="bubble-cell-side"><div id="tl1" class="bubble-corner"><div class="bubble-sprite bubble-tl"></div></div>');
-                temparr.push('<td class="bubble-cell-main"><div class="bubble-top"></div><td class="bubble-cell-side"><div id="tr1" class="bubble-corner"><div class="bubble-sprite bubble-tr"></div></div>  <tr><td class="bubble-mid" colSpan="3"><div style="overflow: hidden" id="bubbleContent1"><div><div></div><div class="cb-root">');
-                temparr.push('<table class="cb-table" cellSpacing="0" cellPadding="0"><tbody><tr><th class="cb-key">');
-                temparr.push(i18n.xgcalendar.time, ':</th><td class=cb-value><div id="bbit-cal-buddle-timeshow"></div></td></tr><tr><th class="cb-key">');
-                temparr.push(i18n.xgcalendar.content, ':</th><td class="cb-value"><div class="textbox-fill-wrapper"><div class="textbox-fill-mid"><textarea id="bbit-cal-what" class="textbox-fill-input"/></div></div><div class="cb-example">');
-                // temparr.push(i18n.xgcalendar.example, '</div></td></tr></tbody></table><input id="bbit-cal-start" type="hidden"/><input id="bbit-cal-end" type="hidden"/><input id="bbit-cal-allday" type="hidden"/><input id="bbit-cal-quickAddBTN" value="');
-                temparr.push(categoryHtml, '</div></td></tr></tbody></table><input id="bbit-cal-start" type="hidden"/><input id="bbit-cal-end" type="hidden"/><input id="bbit-cal-allday" type="hidden"/><input id="bbit-cal-quickAddBTN" value="');
-                temparr.push(i18n.xgcalendar.create_event, '" type="button"/>&nbsp; <SPAN id="bbit-cal-editLink" class="lk">');
-                temparr.push(i18n.xgcalendar.update_detail, ' <StrONG>»</StrONG></SPAN></div></div></div><tr><td><div id="bl1" class="bubble-corner"><div class="bubble-sprite bubble-bl"></div></div><td><div class="bubble-bottom"></div><td><div id="br1" class="bubble-corner"><div class="bubble-sprite bubble-br"></div></div></tr></tbody></table><div id="bubbleClose1" class="bubble-closebutton"></div><div id="prong2" class="prong"><div class=bubble-sprite></div></div></div>');
-                var tempquickAddHanler = temparr.join("");
-                // console.log(i18n.xgcalendar.example);
-                temparr = null;
-                $(document.body).append(tempquickAddHanler);
+                
+            // var buddle = $("#bbit-cal-buddle");
+            // if (buddle.length == 0) {
+
+                                        console.log("a");
+                            console.log(option.extParam["planDayCheck"]);
+                            console.log(option.extParam["finishDayCheck"]);
+
+            var temparr = [];
+            var categoryHtml = '<form id="categoryForm"> 计划 <input type="radio" name="planOrFinish" id="radioPlan" value = "0">   完成  <input type="radio" name="planOrFinish" id="radioPlan" value = "1"> &nbsp;&nbsp;&nbsp;&nbsp; <span id="planFinishComment" style="color:gray"></span></form> ';
+            temparr.push('<div id="bbit-cal-buddle" style="z-index: 990; width: 400px;visibility:hidden;" class="bubble">');
+            temparr.push('<table class="bubble-table" cellSpacing="0" cellPadding="0"><tbody><tr><td class="bubble-cell-side"><div id="tl1" class="bubble-corner"><div class="bubble-sprite bubble-tl"></div></div>');
+            temparr.push('<td class="bubble-cell-main"><div class="bubble-top"></div><td class="bubble-cell-side"><div id="tr1" class="bubble-corner"><div class="bubble-sprite bubble-tr"></div></div>  <tr><td class="bubble-mid" colSpan="3"><div style="overflow: hidden" id="bubbleContent1"><div><div></div><div class="cb-root">');
+            temparr.push('<table class="cb-table" cellSpacing="0" cellPadding="0"><tbody><tr><th class="cb-key">');
+            temparr.push(i18n.xgcalendar.time, ':</th><td class=cb-value><div id="bbit-cal-buddle-timeshow"></div></td></tr><tr><th class="cb-key">');
+            temparr.push(i18n.xgcalendar.content, ':</th><td class="cb-value"><div class="textbox-fill-wrapper"><div class="textbox-fill-mid"><textarea id="bbit-cal-what" class="textbox-fill-input"/></div></div><div class="cb-example">');
+            // temparr.push(i18n.xgcalendar.example, '</div></td></tr></tbody></table><input id="bbit-cal-start" type="hidden"/><input id="bbit-cal-end" type="hidden"/><input id="bbit-cal-allday" type="hidden"/><input id="bbit-cal-quickAddBTN" value="');
+            temparr.push(categoryHtml, '</div></td></tr></tbody></table><input id="bbit-cal-start" type="hidden"/><input id="bbit-cal-end" type="hidden"/><input id="bbit-cal-allday" type="hidden"/><input id="bbit-cal-quickAddBTN" value="');
+            temparr.push(i18n.xgcalendar.create_event, '" type="button"/>&nbsp; <SPAN id="bbit-cal-editLink" class="lk">');
+            temparr.push(i18n.xgcalendar.update_detail, ' <StrONG>»</StrONG></SPAN></div></div></div><tr><td><div id="bl1" class="bubble-corner"><div class="bubble-sprite bubble-bl"></div></div><td><div class="bubble-bottom"></div><td><div id="br1" class="bubble-corner"><div class="bubble-sprite bubble-br"></div></div></tr></tbody></table><div id="bubbleClose1" class="bubble-closebutton"></div><div id="prong2" class="prong"><div class=bubble-sprite></div></div></div>');
+            var tempquickAddHanler = temparr.join("");
+
+            temparr = null;
+            $(document.body).append(tempquickAddHanler);
+
+            if (option.extParam["planDayCheck"] && option.extParam["finishDayCheck"]){ 
                 var dateTime = new Date();
                 if (dateTime.getHours() >= 17 && dateTime.getMinutes() >= 30){
                     $("input[name=planOrFinish]:eq(1)").attr("checked","checked");
                 }else{
                     $("input[name=planOrFinish]:eq(0)").attr("checked","checked");
                 }
+                $("input[name=planOrFinish]:eq(1)").removeAttr("disabled");            
+                $("input[name=planOrFinish]:eq(0)").removeAttr("disabled");
+                $("#bbit-cal-quickAddBTN").removeAttr("disabled");     
+                $("#planFinishComment").html("");
+            }else{
+                if (option.extParam["planDayCheck"]){
+                    $("input[name=planOrFinish]:eq(0)").attr("checked","checked");
+                    $("input[name=planOrFinish]:eq(1)").attr("disabled","disabled");
+                    $("#bbit-cal-quickAddBTN").removeAttr("disabled");            
+                    $("#planFinishComment").html("完成日志已存在");
+                }else if (option.extParam["finishDayCheck"]){
+                    $("input[name=planOrFinish]:eq(1)").attr("checked","checked");
+                    $("input[name=planOrFinish]:eq(0)").attr("disabled","disabled");
+                    $("#bbit-cal-quickAddBTN").removeAttr("disabled");     
+                    $("#planFinishComment").html("计划日志已存在");                                             
+                }else{
+                    $("input[name=planOrFinish]:eq(1)").attr("disabled","disabled");
+                    $("input[name=planOrFinish]:eq(0)").attr("disabled","disabled");
+                    $("#bbit-cal-quickAddBTN").attr("disabled","disabled");     
+                    $("#planFinishComment").html("计划、完成日志已存在");                                             
+                }
+            }
+            
 
-                buddle = $("#bbit-cal-buddle");
-                var calbutton = $("#bbit-cal-quickAddBTN");
-                var lbtn = $("#bbit-cal-editLink");
-                var closebtn = $("#bubbleClose1").click(function() {
+            buddle = $("#bbit-cal-buddle");
+            var calbutton = $("#bbit-cal-quickAddBTN");
+            var lbtn = $("#bbit-cal-editLink");
+            var closebtn = $("#bubbleClose1").click(function() {
+                $("#bbit-cal-buddle").css("visibility", "hidden");
+                realsedragevent();
+            });
+
+
+            calbutton.click(function(e) {                    
+                if (option.isloading) {
+                    return false;
+                }
+                option.isloading = true;
+                var what = $("#bbit-cal-what").val();
+                var datestart = $("#bbit-cal-start").val();
+                var dateend = $("#bbit-cal-end").val();
+                var allday = $("#bbit-cal-allday").val();
+                var categoryValue = parseInt($("input[name=planOrFinish]:checked").val());                    
+                var f = /^[^\$\<\>]+$/.test(what);
+                if (!f) {
+                    alert(i18n.xgcalendar.invalid_title);
+                    $("#bbit-cal-what").focus();
+                    option.isloading = false;
+                    return false;
+                }
+                
+                var zone = new Date().getTimezoneOffset() / 60 * -1;
+                var param = [{ "name": "CalendarTitle", value: what },
+                { "name": "CalendarStartTime", value: datestart },
+                { "name": "CalendarEndTime", value: dateend },
+                { "name": "IsAllDayEvent", value: allday },
+                { "name": "timezone", value: zone},
+                { "name": "Category", value:categoryValue}];
+
+                if (option.extParam) {
+                    for (var pi = 0; pi < option.extParam.length; pi++) {
+                        param[param.length] = option.extParam[pi];
+                    }
+                }
+
+                if (option.quickAddHandler && $.isFunction(option.quickAddHandler)) {
+                    option.quickAddHandler.call(this, param);
                     $("#bbit-cal-buddle").css("visibility", "hidden");
-                    realsedragevent();
-                });
-
-
-                calbutton.click(function(e) {                    
-                    if (option.isloading) {
-                        return false;
-                    }
-                    option.isloading = true;
-                    var what = $("#bbit-cal-what").val();
-                    var datestart = $("#bbit-cal-start").val();
-                    var dateend = $("#bbit-cal-end").val();
-                    var allday = $("#bbit-cal-allday").val();
-                    var categoryValue = parseInt($("input[name=planOrFinish]:checked").val());                    
-                    var f = /^[^\$\<\>]+$/.test(what);
-                    if (!f) {
-                        alert(i18n.xgcalendar.invalid_title);
-                        $("#bbit-cal-what").focus();
-                        option.isloading = false;
-                        return false;
-                    }
-                    
-                    var zone = new Date().getTimezoneOffset() / 60 * -1;
-                    var param = [{ "name": "CalendarTitle", value: what },
-                    { "name": "CalendarStartTime", value: datestart },
-                    { "name": "CalendarEndTime", value: dateend },
-                    { "name": "IsAllDayEvent", value: allday },
-                    { "name": "timezone", value: zone},
-                    { "name": "Category", value:categoryValue}];
-
-                    if (option.extParam) {
-                        for (var pi = 0; pi < option.extParam.length; pi++) {
-                            param[param.length] = option.extParam[pi];
-                        }
-                    }
-
-                    if (option.quickAddHandler && $.isFunction(option.quickAddHandler)) {
-                        option.quickAddHandler.call(this, param);
-                        $("#bbit-cal-buddle").css("visibility", "hidden");
-                        realsedragevent();  
-                    }
-                    else {
-                        $("#bbit-cal-buddle").css("visibility", "hidden");
-                        var newdata = [];
-                        var tId = -1;
-                        option.onBeforeRequestData && option.onBeforeRequestData(2);
-                        $.post(option.quickAddUrl, param, function(data) {                            
-                            if (data) {
-                                if (data.IsSuccess == true) {                                    
-                                    option.isloading = false;
-                                    option.eventItems[tId][0] = data.Data;
-                                    var CZTitle = option.eventItems[tId][1].replace(/[\r\n]/g, 'qYQVP9');
-                                    option.eventItems[tId][1] = CZTitle;
-                                    option.eventItems[tId][8] = 1;
-                                    console.log(option.eventItems[tId]);
-                                    render();
-                                    option.onAfterRequestData && option.onAfterRequestData(2);
+                    realsedragevent();  
+                }
+                else {
+                    $("#bbit-cal-buddle").css("visibility", "hidden");
+                    var newdata = [];
+                    var tId = -1;
+                    option.onBeforeRequestData && option.onBeforeRequestData(2);
+                    $.post(option.quickAddUrl, param, function(data) {                            
+                        if (data) {
+                            if (data.IsSuccess == true) {                                    
+                                option.isloading = false;
+                                option.eventItems[tId][0] = data.Data;
+                                var CZTitle = option.eventItems[tId][1].replace(/[\r\n]/g, 'qYQVP9');
+                                option.eventItems[tId][1] = CZTitle;
+                                option.eventItems[tId][8] = 1;                                    
+                                render();
+                                option.onAfterRequestData && option.onAfterRequestData(2);
+                                if(categoryValue == 0){
+                                    option.extParam["planDayCheck"] = false;
+                                }else if(categoryValue == 1){
+                                    option.extParam["finishDayCheck"] = false;
                                 }
-                                else {
-                                    option.onRequestDataError && option.onRequestDataError(2, data);
-                                    option.isloading = false;
-                                    option.onAfterRequestData && option.onAfterRequestData(2);
-                                }
-
+                            }
+                            else {
+                                option.onRequestDataError && option.onRequestDataError(2, data);
+                                option.isloading = false;
+                                option.onAfterRequestData && option.onAfterRequestData(2);
                             }
 
-                        }, "json");
-
-                        newdata.push(-1, what);
-                        var sd = strtodate(datestart);
-                        var ed = strtodate(dateend);
-                        var diff = DateDiff("d", sd, ed);
-                        newdata.push(sd, ed, allday == "1" ? 1 : 0, diff > 0 ? 1 : 0, 0);
-                        newdata.push(categoryValue, 0, "", ""); //主题,权限,参与人，
-
-                        tId = Ind(newdata);
-                        realsedragevent();
-                        render();
-                    }
-                });
-                lbtn.click(function(e) {
-                    if (!option.EditCmdhandler) {
-                        alert("EditCmdhandler" + i18n.xgcalendar.i_undefined);
-                    }
-                    else {
-                        if (option.EditCmdhandler && $.isFunction(option.EditCmdhandler)) {
-                            option.EditCmdhandler.call(this, ['0', $("#bbit-cal-what").val(), $("#bbit-cal-start").val(), $("#bbit-cal-end").val(), $("#bbit-cal-allday").val()]);
                         }
-                        $("#bbit-cal-buddle").css("visibility", "hidden");
-                        realsedragevent();
+
+                    }, "json");
+
+                    newdata.push(-1, what);
+                    var sd = strtodate(datestart);
+                    var ed = strtodate(dateend);
+                    var diff = DateDiff("d", sd, ed);
+                    newdata.push(sd, ed, allday == "1" ? 1 : 0, diff > 0 ? 1 : 0, 0);
+                    newdata.push(categoryValue, 0, "", ""); //主题,权限,参与人，
+
+                    tId = Ind(newdata);
+                    realsedragevent();
+                    render();
+                }
+            });
+            lbtn.click(function(e) {
+                if (!option.EditCmdhandler) {
+                    alert("EditCmdhandler" + i18n.xgcalendar.i_undefined);
+                }
+                else {
+                    if (option.EditCmdhandler && $.isFunction(option.EditCmdhandler)) {
+                        option.EditCmdhandler.call(this, ['0', $("#bbit-cal-what").val(), $("#bbit-cal-start").val(), $("#bbit-cal-end").val(), $("#bbit-cal-allday").val()]);
                     }
-                    return false;
-                });
-                buddle.mousedown(function(e) { return false });
-            }
+                    $("#bbit-cal-buddle").css("visibility", "hidden");
+                    realsedragevent();
+                }
+                return false;
+            });
+            buddle.mousedown(function(e) { return false });
+            // }
 
             var dateshow = CalDateShow(start, end, !isallday, true);
             var off = getbuddlepos(pos.left, pos.top);

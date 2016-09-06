@@ -141,7 +141,10 @@ ob_end_flush();
                 var dateTime = new Date();
                 planOrFinish["plan"] = "1";
                 planOrFinish["finish"] = "1";
+                planOrFinish["planDayCheck"] = true;
+                planOrFinish["finishDayCheck"] = true;
                 op.extParam = planOrFinish;
+
 
                 var p = $("#gridcontainer").bcalendar(op).BcalGetOp();
                 if (p && p.datestrshow) {
